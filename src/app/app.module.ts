@@ -1,0 +1,62 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LandpageComponent } from './landpage/landpage.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { EditorComponent } from './editor/editor.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import {FormsModule} from '@angular/forms';
+import { HttpClientModule} from '@angular/common/http';
+import { AccueilComponent } from './accueil/accueil.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { BookdetailsComponent } from './books/bookdetails/bookdetails.component';
+import { DefaultPageComponent } from './default-page/default-page.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { BooksComponent } from './books/books.component';
+import { RewriterComponent } from './rewriter/rewriter.component';
+import { AboutComponent } from './books/bookdetails/about/about.component';
+import { WritersComponent } from './books/bookdetails/writers/writers.component';
+import { ChaptersComponent } from './books/bookdetails/chapters/chapters.component';
+import { CreateRoomComponent } from './rooms/create-room/create-room.component';
+import { RoomComponent } from './rooms/room/room.component';
+import { ChapterComponent } from './rooms/room/chapter/chapter.component';
+import {AdminModule} from "./admin/admin.module";
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    LandpageComponent,
+    LoginComponent,
+    SignupComponent,
+    ContactUsComponent,
+    EditorComponent,
+    AccueilComponent,
+    NavbarComponent,
+    BookdetailsComponent,
+    DefaultPageComponent,
+    RoomsComponent,
+    BooksComponent,
+    RewriterComponent,
+    AboutComponent,
+    WritersComponent,
+    ChaptersComponent,
+    CreateRoomComponent,
+    RoomComponent,
+    ChapterComponent
+  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AngularEditorModule,
+        FormsModule,
+        HttpClientModule,
+        AdminModule
+    ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
