@@ -42,10 +42,17 @@
         <div class="formbg">
           <div class="formbg-inner padding-horizontal--48">
             <span class="padding-bottom--15" >Sign in to your account</span>
-            <form id="stripe-login" (ngSubmit)="onLogin()">
+            <form id="stripe-login" #ngForm="ngForm" (ngSubmit)="onSubmit()">
+              <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+              <div *ngIf="showExpiredMessage " class="alert alert-danger">
+                {{ ExpiredMessage  }}
+              </div>
               <div class="field padding-bottom--24">
                 <label for="email">Email</label>
-                <input type="email" name="email" [(ngModel)]="email" id="email">              </div>
+                <input type="email" name="email" id="email" [(ngModel)]="email">
+              </div>
               <div class="field padding-bottom--24">
                 <div class="grid--50-50">
                   <label for="password">Password</label>
@@ -53,15 +60,22 @@
                     <a href="#">Forgot your password?</a>
                   </div>
                 </div>
-                <input type="password" name="password" [(ngModel)]="password" id="password">              </div>
+                <input type="password" name="password" id="password" [(ngModel)]="password">
+              </div>
               <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
                 <label for="checkbox">
-                  <input type="checkbox" id="checkbox" name="checkbox"> Stay signed in for a week
+                  <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" id="checkbox"> Stay signed in for a week
                 </label>
+
               </div>
+
               <div class="field padding-bottom--24">
-                <input type="submit" name="submit" style="background: #5469d4;" value="Continue" [disabled]="loading">              </div>
+                <input type="submit" name="submit" style="background: #5469d4;" value="Continue" [disabled]="loading">
+              </div>
+              <div class="field padding-bottom--24" id="google-btn"></div>
+
             </form>
+
           </div>
         </div>
         <div class="footer-link padding-top--24">

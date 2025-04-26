@@ -10,7 +10,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { EditorComponent } from './editor/editor.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {FormsModule} from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AccueilComponent } from './accueil/accueil.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BookdetailsComponent } from './books/bookdetails/bookdetails.component';
@@ -25,6 +25,7 @@ import { CreateRoomComponent } from './rooms/create-room/create-room.component';
 import { RoomComponent } from './rooms/room/room.component';
 import { ChapterComponent } from './rooms/room/chapter/chapter.component';
 import {AdminModule} from "./admin/admin.module";
+import {AuthInterceptor} from './services/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,13 @@ import {AdminModule} from "./admin/admin.module";
         HttpClientModule,
         AdminModule
     ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

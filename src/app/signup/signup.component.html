@@ -44,6 +44,9 @@
           <div class="formbg-inner padding-horizontal--48">
             <span class="padding-bottom--15">Signup your account</span>
             <form  (ngSubmit)="onRegister()" id="stripe-login ">
+              <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
               <div style="display: flex">
                 <div >
                   <div class="field padding-bottom--24">
@@ -62,17 +65,18 @@
                       <label for="Role">Role</label>
                     </div>
                     <select id="role" name="role" [(ngModel)]="role" required>
-                      <option value="" disabled selected>Select a role</option> <!-- Placeholder option -->
-                      <option value="Admin">Admin</option>
-                      <option value="Team Leader">Team Leader</option>
-                      <option value="Dev">Dev</option>
-                    </select>                  </div>
+                      <option value="" disabled selected>Select a role</option>
+                      <option value="User">User</option>
+                      <option value="Writer">Writer</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="vl"></div>
                 <div>
                   <div class="field padding-bottom--24">
                     <label for="email">Email</label>
-                    <input type="email" id="email" [(ngModel)]="email" name="email" required>                  </div>
+                    <input type="email" id="email" [(ngModel)]="email" name="email" required>
+                  </div>
                   <div class="field padding-bottom--24">
                     <div class="grid--50-50">
                       <label for="password">Password</label>

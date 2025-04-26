@@ -15,6 +15,7 @@ import {WritersComponent} from './books/bookdetails/writers/writers.component';
 import {ChaptersComponent} from './books/bookdetails/chapters/chapters.component';
 import {CreateRoomComponent} from './rooms/create-room/create-room.component';
 import {RoomComponent} from './rooms/room/room.component';
+import {authGuardGuard} from './services/auth-guard.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,14 +24,14 @@ const routes: Routes = [
   {path:'signup',component:SignupComponent},
   {path:'editor',component:EditorComponent},
   {path:'contactUs',component:ContactUsComponent},
-  {path:'acceuil',component:AccueilComponent},
-  {path:'rooms',component:RoomsComponent},
-  {path:'room/:id',component:RoomComponent},
-  {path:'room/:id/chapter/:id',component:ChaptersComponent},
-  {path:'rooms/create',component:CreateRoomComponent},
-  {path:'book',component:BooksComponent},
-  {path:'ktiba',component:RewriterComponent},
-  {path:'book/:id',component:BookdetailsComponent,
+  {path:'acceuil',component:AccueilComponent,canActivate: [authGuardGuard]},
+  {path:'rooms',component:RoomsComponent,canActivate: [authGuardGuard]},
+  {path:'room/:id',component:RoomComponent,canActivate: [authGuardGuard]},
+  {path:'room/:id/chapter/:id',component:ChaptersComponent,canActivate: [authGuardGuard]},
+  {path:'rooms/create',component:CreateRoomComponent,canActivate: [authGuardGuard]},
+  {path:'book',component:BooksComponent,canActivate: [authGuardGuard]},
+  {path:'ktiba',component:RewriterComponent,canActivate: [authGuardGuard]},
+  {path:'book/:id',component:BookdetailsComponent,canActivate: [authGuardGuard],
     children: [
       { path: '', redirectTo: 'about', pathMatch: 'full' },
 
@@ -48,7 +49,11 @@ const routes: Routes = [
       }
     ],
   },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
+  { path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    ,canActivate: [authGuardGuard],
+    data: { role: 'admin' }
+  }
 ];
 
 @NgModule({
