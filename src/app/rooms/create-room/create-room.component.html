@@ -5,45 +5,58 @@
       <div class="create-room-container">
         <h1 class="page-title">Create a Room</h1>
 
-        <form class="modern-room-form">
-          <!-- Title Input -->
+        <form #ngForm="ngForm" (ngSubmit)="onRegister()" class="modern-room-form">
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
           <div class="form-group">
             <label for="roomTitle">Title</label>
-            <input type="text" id="roomTitle" name="roomTitle" placeholder="Enter room title" required>
+            <input type="text" id="roomTitle" name="roomTitle" placeholder="Enter room title" [(ngModel)]="room.name" required>
             <div class="focus-line"></div>
             <p class="hint-text">Chose your room title carefully</p>
           </div>
-
-          <!-- Invite Writers Input -->
+          <div class="form-group">
+            <label for="inviteWriters">Mode</label>
+            <select id="genre" name="genre" [(ngModel)]="room.visibility" required>
+              <option value="" disabled selected>Select genre</option>
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+            </select>
+            <div class="focus-line"></div>
+            <p class="hint-text">Separate multiple emails with commas</p>
+          </div>
           <div class="form-group">
             <label for="inviteWriters">Invite Writers</label>
-            <input type="text" id="inviteWriters" name="inviteWriters" placeholder="Enter emails separated by commas">
+            <input type="text" id="inviteWriters" name="inviteWriters" placeholder="Enter emails separated by commas" >
             <div class="focus-line"></div>
             <p class="hint-text">Separate multiple emails with commas</p>
           </div>
 
-          <!-- Description Input -->
           <div class="form-group">
             <label for="roomDescription">Description</label>
-            <textarea id="roomDescription" name="roomDescription" placeholder="Brief description of your room" rows="3" required></textarea>
+            <textarea id="roomDescription" name="roomDescription" placeholder="Brief description of your room" rows="3"  [(ngModel)]="room.description" required></textarea>
             <div class="focus-line"></div>
             <p class="hint-text">Room description</p>
-
           </div>
-          <!-- Cover Image Upload -->
-          <div class="form-group file-upload-group">
-            <label>Cover Image</label>
-            <div class="file-upload-area" id="uploadArea">
-              <svg class="upload-icon" viewBox="0 0 24 24">
-                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-              </svg>
-              <p>Drag & drop cover image or click to browse</p>
-              <input type="file" id="coverImage" name="coverImage" accept="image/*">
+          <div class="form-group">
+            <label>Thumbnail Image*</label>
+            <div class="file-upload">
+              <div *ngIf="!imagePreview; else previewBlock" class="file-upload-btn" (click)="fileInput.click()">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <p>Drag & drop the cover image here or click to browse</p>
+                <span class="file-upload-label">Recommended size: 800x1200px (JPG, PNG)</span>
+              </div>
+              <ng-template #previewBlock>
+                <p>Drag & drop to change the cover image here or click to browse</p>
+
+                <div class="thumbnail-preview-container">
+                  <img [src]="imagePreview" class="thumbnail-preview" alt="Thumbnail preview">
+                </div>
+              </ng-template>
+
+              <input #fileInput type="file" id="thumbnail" (change)="onFileSelected($event)" accept="image/*" class="file-upload-input" required>
             </div>
-            <div class="file-preview" id="filePreview"></div>
           </div>
-
-          <!-- Form Actions -->
           <div class="form-actions">
             <button type="button" class="btn cancel-btn">Cancel</button>
             <button type="submit" class="btn submit-btn" style="  background: #4361ee;">Create Room</button>

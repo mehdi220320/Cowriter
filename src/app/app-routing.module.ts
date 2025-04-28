@@ -15,7 +15,7 @@ import {WritersComponent} from './books/bookdetails/writers/writers.component';
 import {ChaptersComponent} from './books/bookdetails/chapters/chapters.component';
 import {CreateRoomComponent} from './rooms/create-room/create-room.component';
 import {RoomComponent} from './rooms/room/room.component';
-import {authGuardGuard} from './services/auth-guard.guard';
+import {authGuardGuard} from './services/authentication/auth-guard.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

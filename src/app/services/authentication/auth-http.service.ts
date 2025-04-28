@@ -11,15 +11,17 @@ export class AuthHttpService {
   private apiUrl = 'http://localhost:3000/auth';
   private tokenKey = 'auth_token';
   private roleKey = 'user_role';
-
+  private userKey='user_id';
   constructor(private http: HttpClient) {}
 
   register(name: string, email: string, password: string, role: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, { name, email, password, role }).pipe(
       tap((response: any) => {
-        if (response.token && response.user?.role) {
+        if (response.token && response.user.role) {
           this.setToken(response.token);
           this.setUserRole(response.user.role);
+          this.setId(response.user.id)
+
         }
       })
     );
@@ -29,9 +31,11 @@ export class AuthHttpService {
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response: any) => {
-        if (response.token && response.role) {
+
+        if (response.token && response.user.role) {
           this.setToken(response.token);
-          this.setUserRole(response.role);
+          this.setUserRole(response.user.role);
+          this.setId(response.user.id)
         }
       })
     );
@@ -39,9 +43,12 @@ export class AuthHttpService {
   loginWithGoogle(credential: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/google-auth`, { credential }).pipe(
       tap((response: any) => {
-        if (response.token && response.role) {
+        console.log(response)
+
+        if (response.token && response.user.role) {
           this.setToken(response.token);
-          this.setUserRole(response.role);
+          this.setUserRole(response.user.role);
+          this.setId(response.user.id)
         }
       })
     );
@@ -57,7 +64,9 @@ export class AuthHttpService {
   setUserRole(role: string): void {
     localStorage.setItem(this.roleKey, role);
   }
-
+  setId(id:string):void{
+    localStorage.setItem(this.userKey, id);
+  }
   getUserRole(): string | null {
     return localStorage.getItem(this.roleKey);
   }
@@ -90,7 +99,6 @@ export class AuthHttpService {
   isAdmin(): boolean {
     return this.getUserRole() === 'admin';
   }
-
   clearAuthData(): void {
     this.logout();
     localStorage.removeItem('auth_source');

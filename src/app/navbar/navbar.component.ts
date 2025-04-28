@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {AuthHttpService} from '../services/auth-http.service';
+import {AuthHttpService} from '../services/authentication/auth-http.service';
 declare var google:any;
 
 @Component({

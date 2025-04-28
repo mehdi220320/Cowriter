@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {environment} from '../models/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-import {AuthHttpService} from '../services/auth-http.service';
+import {AuthHttpService} from '../services/authentication/auth-http.service';
 declare var google:any;
 @Component({
   selector: 'app-login',

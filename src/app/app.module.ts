@@ -25,7 +25,7 @@ import { CreateRoomComponent } from './rooms/create-room/create-room.component';
 import { RoomComponent } from './rooms/room/room.component';
 import { ChapterComponent } from './rooms/room/chapter/chapter.component';
 import {AdminModule} from "./admin/admin.module";
-import {AuthInterceptor} from './services/auth-interceptor';
+import {AuthInterceptor} from './services/authentication/auth-interceptor';
 
 @NgModule({
   declarations: [

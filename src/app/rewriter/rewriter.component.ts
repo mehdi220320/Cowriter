@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { DictionaryServiceService } from '../services/dictionary-service.service';
+import { DictionaryServiceService } from '../services/authentication/dictionary-service.service';
 
 @Component({
   selector: 'app-rewriter',
