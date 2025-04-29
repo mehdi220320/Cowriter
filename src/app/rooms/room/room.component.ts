@@ -3,6 +3,8 @@ import {RoomsService} from '../../services/rooms.service';
 import {Room} from '../../models/Room';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {BooksService} from '../../services/books.service';
+import {Book} from '../../models/Book';
 
 @Component({
   selector: 'app-room',
@@ -11,8 +13,12 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
   styleUrl: './room.component.css'
 })
 export class RoomComponent implements OnInit{
-  constructor(private roomService:RoomsService, private sanitizer: DomSanitizer, private  route:ActivatedRoute) {}
+  constructor(private roomService:RoomsService,
+              private sanitizer: DomSanitizer,
+              private  route:ActivatedRoute,
+              private bookService:BooksService) {}
   roomId="";
+  books:Book[]=[]
   room: Room = {
     _id: "",
     name: "",
@@ -41,7 +47,11 @@ export class RoomComponent implements OnInit{
       },error:(err)=>{
         console.error(err);
         }
-    }
+    });
+    this.bookService.getBooksByroom(this.roomId).subscribe({next:(response)=>{
+      this.books=response;
+      console.log(this.books);
+      },error:(err)=>{console.error(err)}}
     )
   }
   sanitizeImageUrl(url: { path: string } | null): SafeUrl | string {

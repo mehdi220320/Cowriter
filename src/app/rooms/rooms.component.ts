@@ -52,7 +52,7 @@ export class RoomsComponent implements OnInit{
     this.roomService.getMyRooms(this.userId).subscribe({
       next: (response) => {
         this.myrooms = response;
-        this.updateVisibleRooms(); // Initialize visible rooms
+        this.updateVisibleRooms();
       },
       error: (err) => {
         console.error('Error fetching my rooms:', err);

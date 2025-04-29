@@ -63,10 +63,10 @@
 
       <!-- Rooms Grid - now using visibleRooms -->
       <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-5">
-        <div *ngFor="let room of visibleRooms" class="relative rounded-xl overflow-hidden">
+        <div *ngFor="let room of visibleRooms" class="relative rounded-xl overflow-hidden" >
           <img [src]="sanitizeImageUrl(room.coverImage)" class="object-cover w-full h-full -z-10" alt="Room">
           <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
-            <a href="#" data-tooltip="Access" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-red-600/80">
+            <a routerLink="/room/{{room._id}}" data-tooltip="Access" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-red-600/80">
               <i class="fa-solid fa-right-to-bracket"></i>
             </a>
 
@@ -88,7 +88,7 @@
         <div *ngFor="let room of rooms" class="relative rounded-xl overflow-hidden ">
           <img [src]="sanitizeImageUrl(room.coverImage)" class="object-cover w-full h-full -z-10" alt="Room" >
           <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
-            <a href="#"  data-tooltip="Join" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-red-600/80">
+            <a routerLink="/room/{{room._id}}"  data-tooltip="Join" class="p-2.5 bg-gray-800/80 rounded-lg text-white self-end hover:bg-red-600/80">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
               </svg>
