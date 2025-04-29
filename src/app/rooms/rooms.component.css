@@ -1527,3 +1527,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 .create-button {
   background: linear-gradient(135deg, #34d399 0%, #059669 100%);
 }
+
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-button {
+  transition: all 0.2s ease;
+}
+
+.pagination-button:hover:not(.active) {
+  background-color: #f3f4f6;
+  dark:bg-gray-600;
+}

@@ -1,16 +1,45 @@
 <app-default-page>
+  <div class="book-container">
+    <div class="book-header">
+      <img src="assets/book1.png" alt="Book Cover" class="book-cover">
+      <div class="book-meta">
+        <h1 class="book-title">The Great Adventure</h1>
+        <span class="book-type">Fantasy</span>
 
-  <main style="width: 1261px;">
-    <nav id="navbar">
-      <ul>
-        <li routerLinkActive="active" routerLink="about">About</li>
-        <li routerLinkActive="active" routerLink="writers">Writers</li>
-        <li routerLinkActive="active" routerLink="chapters">Chapters</li>
-      </ul>
-      <hr />
-    </nav>
-    <router-outlet></router-outlet>
+        <div class="book-status">
+          <span class="status-badge status-in-progress">In Progress</span>
+          <span class="status-badge">Last chapter: Draft</span>
+        </div>
 
-  </main>
+        <div class="book-author">
+          <div class="author-avatar">JD</div>
+          <span class="author-name">John Doe</span>
+        </div>
+
+        <p class="book-description">
+          This is an epic tale of adventure and discovery. Follow our heroes as they journey through mystical lands and encounter extraordinary creatures.
+        </p>
+
+        <div class="book-actions">
+          <button class="btn btn-primary">Continue Reading</button>
+          <button class="btn btn-outline">Add Chapter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapters-section">
+
+      <div class="section-title">
+        <h4 class="nav-link" routerLinkActive="active" routerLink="about">About</h4>
+        <h4 class="nav-link" routerLinkActive="active" routerLink="chapters">Chapters</h4>
+        <h4 class="nav-link" routerLinkActive="active" routerLink="writers">Writers</h4>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+
+
+
 
 </app-default-page>

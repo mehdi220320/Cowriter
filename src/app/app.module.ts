@@ -26,6 +26,8 @@ import { RoomComponent } from './rooms/room/room.component';
 import { ChapterComponent } from './rooms/room/chapter/chapter.component';
 import {AdminModule} from "./admin/admin.module";
 import {AuthInterceptor} from './services/authentication/auth-interceptor';
+import { NameInitialsPipe } from './pipes/name-initials.pipe';
+import { CreateBookComponent } from './books/create-book/create-book.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import {AuthInterceptor} from './services/authentication/auth-interceptor';
     ChaptersComponent,
     CreateRoomComponent,
     RoomComponent,
-    ChapterComponent
+    ChapterComponent,
+    NameInitialsPipe,
+    CreateBookComponent
   ],
     imports: [
         BrowserModule,

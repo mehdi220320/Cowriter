@@ -59,4 +59,5 @@ export class NavbarComponent implements OnDestroy{
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
   }
+
 }

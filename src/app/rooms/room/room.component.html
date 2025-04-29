@@ -5,17 +5,11 @@
       <div class="container">
         <div class="header">
           <div class="book-header">
-            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                 alt="Book Cover"
-                 class="book-cover">
+            <img [src]="sanitizeImageUrl(room.coverImage)" alt="Book Cover" class="book-cover">
             <div class="book-info">
-              <h1 class="room-title">The Digital Odyssey</h1>
+              <h1 class="room-title">{{room.name}}</h1>
               <p class="book-description">
-                "The Digital Odyssey" explores humanity's journey through the technological revolution.
-                This collaborative work brings together diverse perspectives on how digital transformation
-                is reshaping our lives, relationships, and societies. From artificial intelligence to
-                virtual realities, each chapter delves into different facets of our digital future,
-                offering both critical analysis and hopeful visions for what lies ahead.
+                {{room.description}}
               </p>
             </div>
           </div>
@@ -150,27 +144,13 @@
 
         <aside class="user-list">
           <div style="position: sticky;top: 100px;">
-            <h2>Collaborators (4)</h2>
+            <h2>Collaborators ({{room.users.length}})</h2>
 
-            <div class="user-item">
-              <div class="user-avatar">AJ</div>
-              <span>Alex Johnson</span>
+            <div *ngFor="let user of room.users" class="user-item">
+              <div class="user-avatar">{{user.name | nameInitials  }}</div>
+              <span>{{user.name}}</span>
             </div>
 
-            <div class="user-item">
-              <div class="user-avatar">SR</div>
-              <span>Sam Rivera</span>
-            </div>
-
-            <div class="user-item">
-              <div class="user-avatar">TS</div>
-              <span>Taylor Smith</span>
-            </div>
-
-            <div class="user-item">
-              <div class="user-avatar">MP</div>
-              <span>Morgan Park</span>
-            </div>
 
             <div class="invite-section">
               <h3>Invite Collaborators</h3>
@@ -181,10 +161,12 @@
               </div>
 
               <div class="invite-link-group">
-                <label class="invite-link-label">Or share this link:</label>
+                <label class="invite-link-label">Or share this code:</label>
                 <div class="invite-link-container">
-                  <span class="invite-link">https://book-collab.com/join/xyz123</span>
-                  <button class="copy-button" onclick="copyInviteLink()">Copy</button>
+                  <span class="invite-link">{{ room.code }}</span>
+                  <button class="copy-button" (click)="copyInviteLink()">
+                    {{ isCopied ? 'Copied!' : 'Copy' }}
+                  </button>
                 </div>
               </div>
             </div>

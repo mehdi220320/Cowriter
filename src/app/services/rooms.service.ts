@@ -18,4 +18,10 @@ export class RoomsService {
   getAllRooms():Observable<Room[]>{
     return this.http.get<Room[]>(this.apiUrl+"/all")
   }
+  getMyRooms(id:string):Observable<Room[]>{
+    return this.http.get<Room[]>(this.apiUrl+"/myrooms/"+id)
+  }
+  getRoomById(id:string):Observable<any>{
+    return this.http.get<Room[]>(this.apiUrl+"/"+id)
+  }
 }
