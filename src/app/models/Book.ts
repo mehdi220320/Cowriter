@@ -4,11 +4,15 @@ export interface Book {
   type:string,
   room:string,
   createdBy:{_id:string,name:string}
-  chapters:string[],
+  chapters:{_id:string,chapterNumber:string,updatedAt:string}[],
   lastChapterDeclared:string,
   createdAt:string,
   updatedAt:string,
   __v:string,
   completed:boolean,
-
+  description:string,
+  coverImage: {
+    path: string,
+    contentType: string,
+  }
 }

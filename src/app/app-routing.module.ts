@@ -12,10 +12,11 @@ import {BookdetailsComponent} from './books/bookdetails/bookdetails.component';
 import {RewriterComponent} from './rewriter/rewriter.component';
 import {AboutComponent} from './books/bookdetails/about/about.component';
 import {WritersComponent} from './books/bookdetails/writers/writers.component';
-import {ChaptersComponent} from './books/bookdetails/chapters/chapters.component';
 import {CreateRoomComponent} from './rooms/create-room/create-room.component';
 import {RoomComponent} from './rooms/room/room.component';
 import {authGuardGuard} from './services/authentication/auth-guard.guard';
+import {ChapterComponent} from './rooms/room/chapter/chapter.component';
+import {ChaptersComponent} from './books/bookdetails/chapters/chapters.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -27,7 +28,7 @@ const routes: Routes = [
   {path:'acceuil',component:AccueilComponent,canActivate: [authGuardGuard]},
   {path:'rooms',component:RoomsComponent,canActivate: [authGuardGuard]},
   {path:'room/:id',component:RoomComponent,canActivate: [authGuardGuard]},
-  {path:'room/:id/chapter/:id',component:ChaptersComponent,canActivate: [authGuardGuard]},
+  {path:'room/:id/chapter/:chapterId',component:ChapterComponent,canActivate: [authGuardGuard]},
   {path:'rooms/create',component:CreateRoomComponent,canActivate: [authGuardGuard]},
   {path:'book',component:BooksComponent,canActivate: [authGuardGuard]},
   {path:'ktiba',component:RewriterComponent,canActivate: [authGuardGuard]},

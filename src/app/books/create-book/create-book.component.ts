@@ -13,7 +13,10 @@ import { Location } from '@angular/common';
 export class CreateBookComponent {
   errorMessage="";
   userId:any="";
-  roomId=""
+  roomId="";
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -81,31 +84,52 @@ export class CreateBookComponent {
     this.location.replaceState(currentUrl);
     window.location.reload();
   }
-  onFileSelected(event: any) {
+  onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
-      this.book.coverImage = file;
+      if (!file.type.match(/image\/(jpeg|png|jpg)/)) {
+        this.errorMessage = 'Only JPG/PNG images are allowed';
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        this.errorMessage = 'Image must be less than 5MB';
+        return;
+      }
+
+      this.selectedFile = file;
+      this.errorMessage = '';
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
   }
-
   onRegister() {
-    const formData = new FormData();
-    formData.append('title', this.book.title);
-    formData.append('description', this.book.description);
-    formData.append('firstChapterContent', this.book.HtmlContent);
-    formData.append('createdBy', this.userId);
-    formData.append('roomId', this.roomId);
-    formData.append('type', this.book.type);
-    console.log("format that i send : "+formData.toString())
-    this.bookservice.createBook(formData).subscribe({next:(response)=>{
-      console.log("created Succefully ",response);
-        // this.reloadCurrentRoute();
-      },
-        error:(err)=>{this.errorMessage=err}
-    }
-    )
-  }
+    const bookData = {
+      title: this.book.title,
+      description: this.book.description,
+      firstChapterContent: this.book.HtmlContent,
+      createdBy: this.userId,
+      roomId: this.roomId,
+      type: this.book.type,
+      coverImage:{path:this.selectedFile?.webkitRelativePath}
+    };
 
+    console.log(this.selectedFile)
+
+    console.log("Sending data:", bookData);
+
+    this.bookservice.createBook(bookData).subscribe({
+      next: (response) => {
+        console.log("created Successfully ", response);
+        this.reloadCurrentRoute();
+      },
+      error: (err) => { console.log(err) }
+    });
+  }
   onCancel() {
 
   }

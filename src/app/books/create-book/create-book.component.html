@@ -50,18 +50,22 @@
       </div>
 
       <div class="form-group full-width">
-        <label class="form-label">Cover Image</label>
-        <div class="cover-upload" id="coverUpload" (click)="coverImage.click()">
-          <div class="upload-icon">+</div>
-          <div class="upload-text">Click to upload cover image</div>
-          <div class="upload-hint">JPG or PNG, max 5MB</div>
-          <input
-            type="file"
-            id="coverImage"
-            accept="image/*"
-            style="display: none;"
-            (change)="onFileSelected($event)"
-            #coverImage>
+        <label>Thumbnail Image*</label>
+        <div class="file-upload">
+          <div *ngIf="!imagePreview; else previewBlock" class="file-upload-btn" (click)="fileInput.click()">
+            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+            <p>Drag & drop the cover image here or click to browse</p>
+            <span class="file-upload-label">Recommended size: 800x1200px (JPG, PNG)</span>
+          </div>
+          <ng-template #previewBlock>
+            <p>Drag & drop to change the cover image here or click to browse</p>
+
+            <div class="thumbnail-preview-container">
+              <img [src]="imagePreview" class="thumbnail-preview" alt="Thumbnail preview">
+            </div>
+          </ng-template>
+
+          <input #fileInput type="file" id="thumbnail" (change)="onFileSelected($event)" accept="image/*" class="file-upload-input" required>
         </div>
       </div>
 

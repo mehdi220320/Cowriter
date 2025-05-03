@@ -14,7 +14,10 @@ export class BooksService {
   getBooksByroom(id:any):Observable<Book[]>{
     return this.http.get<Book[]>(this.apiUrl+"/room/"+id)
   }
-  createBook(data:FormData):Observable<any>{
+  createBook(data:any):Observable<any>{
     return this.http.post<any>(this.apiUrl+"/create",data);
+  }
+  getBookById(id:any):Observable<Book>{
+    return this.http.get<Book>(this.apiUrl+"/"+id)
   }
 }

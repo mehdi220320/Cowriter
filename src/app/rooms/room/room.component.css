@@ -7,7 +7,11 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
+.room-header{
+  gap: 20px;
+  align-items: flex-start;
+  width: 100%;
+}
 .header {
   grid-column: 1 / -1;
   display: flex;
@@ -36,11 +40,15 @@
 .book-info {
   flex: 1;
 }
-
+.room-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .room-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #dc2626; /* New red color */
+  color: #6C5CE7;
   margin-bottom: 10px;
 }
 
@@ -85,7 +93,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #dc2626; /* New red color */
+  background-color: #6C5CE7; /* New red color */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,7 +138,7 @@
 
 .invite-button {
   padding: 8px 15px;
-  background-color: #dc2626; /* New red color */
+  background-color: #6C5CE7; /* New red color */
   color: white;
   border: none;
   border-radius: 0 8px 8px 0;
@@ -139,7 +147,7 @@
 }
 
 .invite-button:hover {
-  background-color: #b91c1c; /* Darker shade of the red */
+  background-color: #6C5CE7; /* Darker shade of the red */
 }
 
 .invite-link-group {
@@ -170,7 +178,7 @@
 }
 
 .copy-button {
-  background: #dc2626; /* New red color */
+  background: #6C5CE7; /* New red color */
   color: white;
   border: none;
   border-radius: 4px;
@@ -181,7 +189,7 @@
 }
 
 .copy-button:hover {
-  background-color: #b91c1c; /* Darker shade of the red */
+  background-color: #6C5CE7; /* Darker shade of the red */
 }
 
 .copy-button.copied {
@@ -216,7 +224,7 @@
   border-radius: 8px;
   transition: all 0.2s ease;
   cursor: pointer;
-  border-left: 4px solid #dc2626; /* New red color */
+  border-left: 4px solid #6C5CE7; /* New red color */
 }
 
 .chapter-item:hover {
@@ -287,7 +295,7 @@
 }
 
 .filter-btn.active {
-  background: #dc2626; /* New red color */
+  background: #6C5CE7; /* New red color */
   color: white;
 }
 
@@ -320,7 +328,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #dc2626; /* New red color */
+  background-color: #6C5CE7; /* New red color */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -389,7 +397,7 @@
 }
 
 .comment-action:hover {
-  color: #dc2626; /* New red color */
+  color: #6C5CE7; /* New red color */
 }
 
 .comment-action::before {
@@ -449,13 +457,13 @@
 }
 
 .comment-input:focus {
-  border-color: #dc2626; /* New red color */
+  border-color: #6C5CE7; /* New red color */
 }
 
 .comment-submit {
   align-self: flex-end;
   padding: 8px 20px;
-  background-color: #dc2626; /* New red color */
+  background-color: #6C5CE7; /* New red color */
   color: white;
   border: none;
   border-radius: 20px;
@@ -465,7 +473,7 @@
 }
 
 .comment-submit:hover {
-  background-color: #b91c1c; /* Darker shade of the red */
+  background-color: #6C5CE7; /* Darker shade of the red */
 }
 
 .add-chapter {
@@ -473,7 +481,7 @@
   align-items: center;
   justify-content: center;
   padding: 15px;
-  background-color: #dc2626; /* New red color */
+  background-color: #6C5CE7; /* New red color */
   color: white;
   border-radius: 8px;
   font-weight: 600;
@@ -483,7 +491,7 @@
 }
 
 .add-chapter:hover {
-  background-color: #b91c1c; /* Darker shade of the red */
+  background-color: #6C5CE7; /* Darker shade of the red */
 }
 
 .add-chapter::before {
@@ -513,4 +521,120 @@
   .comment-bubble {
     max-width: 100%;
   }
+}
+
+
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.book-card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid #DFE6E9;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  border-color: #FD79A8;
+}
+
+.book-cover {
+  width: 100%;
+  height: 160px;
+  background-color: #f0f4ff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6C5CE7;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-info {
+  flex-grow: 1;
+}
+
+.book-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #2D3436;
+}
+
+.book-meta {
+  font-size: 0.875rem;
+  color: #636E72;
+  margin-bottom: 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.book-description {
+  font-size: 0.9375rem;
+  color: #2D3436;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.book-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.book-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  background-color: rgba(0, 184, 148, 0.1);
+  color: #00B894;
+}
+
+.book-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #636E72;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #6C5CE7;
+  color: white;
+  transform: scale(1.1);
 }

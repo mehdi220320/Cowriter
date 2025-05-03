@@ -1,47 +1,78 @@
 <app-default-page>
-  <app-create-book  style="width: 100% ;
-  margin-left: 10%;" *ngIf="books.length===0"></app-create-book>
+  <app-create-book  style="width: 100% ;margin-left: 10%;" *ngIf="books.length===0"></app-create-book>
 
   <main  class=" flex-1 py-10  px-5 sm:px-10 ">
     <section *ngIf="books.length>0" class="mt-3 mb-3" >
       <div class="container">
         <div class="header">
-          <div class="book-header">
+          <div class="room-header">
             <img [src]="sanitizeImageUrl(room.coverImage)" alt="Book Cover" class="book-cover">
-            <div class="book-info">
+            <div class="room-info">
               <h1 class="room-title">{{room.name}}</h1>
               <p class="book-description">
                 {{room.description}}
               </p>
+              <button class="btn btn-primary">Follow</button>
             </div>
           </div>
         </div>
 
         <main>
-          <div class="chapter-list">
-            <h2>Chapters</h2>
-
-            <div class="chapter-item">
-              <div class="chapter-title">Chapter 1: The Digital Awakening</div>
-              <div class="chapter-meta">
-                <span class="chapter-author">By Alex Johnson</span>
-                <span class="chapter-date">Last edited: 2 days ago</span>
+          <div  class="books-view">
+            <div class="content-header" style="  display: flex;
+                                                  justify-content: space-between;
+                                                  align-items: center;">
+              <h1 class="header-title">Writers Workspace</h1>
+              <div class="header-actions">
+                <button class="btn btn-outline">
+                  <i class="fas fa-filter"></i>
+                  <span>Filter</span>
+                </button>
+                <button class="btn btn-primary">
+                  <i class="fas fa-plus"></i>
+                  <span>New Book</span>
+                </button>
               </div>
             </div>
 
-            <div class="chapter-item">
-              <div class="chapter-title">Chapter 2: Networks of the Mind</div>
-              <div class="chapter-meta">
-                <span class="chapter-author">By Sam Rivera</span>
-                <span class="chapter-date">Last edited: 1 day ago</span>
+            <div class="books-grid">
+              <div class="book-card" *ngFor="let book of books" (click)="getBook(book._id)">
+                <div class="book-cover">
+                  <img [src]="sanitizeImageUrl(room.coverImage)" alt="Book Cover" class="book-cover">
+                </div>
+                <div class="book-info">
+                  <h3>{{book.title}}</h3>
+                  <div class="book-meta">
+                    <span>chapters: {{book.chapters.length}}</span>
+                    <span>•</span>
+                    <span>last update {{book.updatedAt | date}}</span>
+                  </div>
+                  <p class="book-description">
+                    {{book.description}}
+                  </p>
+                </div>
+                <div class="book-footer">
+                  <span class="book-status">{{book.completed}}</span>
+                  <div class="book-actions">
+                    <button class="action-btn">
+                      <i class="fas fa-share-alt"></i>
+                    </button>
+                    <button class="action-btn">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="chapter-item">
-              <div class="chapter-title">Chapter 3: Code and Consciousness</div>
+            </div>
+          </div>
+          <div *ngIf="bookSelected" class="chapter-list" [routerLink]="'/room/' + roomId + '/chapter/' + bookSelected._id">
+            <h2>{{bookSelected.title}}: Chapters</h2>
+            <div class="chapter-item" *ngFor="let chapter of bookSelected.chapters">
+              <div class="chapter-title">Chapter {{chapter.chapterNumber}}:</div>
               <div class="chapter-meta">
-                <span class="chapter-author">By Taylor Smith</span>
-                <span class="chapter-date">Last edited: 5 hours ago</span>
+<!--                <span class="chapter-author">By Alex Johnson</span>-->
+                <span class="chapter-date">Last edit at: {{chapter.updatedAt | date}}</span>
               </div>
             </div>
 
@@ -51,7 +82,7 @@
           <!-- Creative Comment Section -->
           <div class="comments-container">
             <div class="comments-header">
-              <h2>Chapter Discussions</h2>
+              <h2>Room Discussions</h2>
               <div class="comment-filters">
                 <button class="filter-btn active">All</button>
                 <button class="filter-btn">Chapter 1</button>

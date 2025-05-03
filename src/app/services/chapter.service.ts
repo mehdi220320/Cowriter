@@ -1,0 +1,20 @@
+import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Chapter} from '../models/Chapter';
+import {Observable} from 'rxjs';
+import {ChapterVersion} from '../models/ChapterVersion';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ChapterService {
+  private apiUrl = 'http://localhost:3000/chapters';
+
+  constructor(private http:HttpClient) {}
+  getChapterById(id:any):Observable<Chapter>{
+    return this.http.get<Chapter>(this.apiUrl+"/"+id);
+  }
+  getChapterVersions(id:any):Observable<ChapterVersion[]>{
+    return this.http.get<ChapterVersion[]>(this.apiUrl+"/"+id+"/versions");
+  }
+}

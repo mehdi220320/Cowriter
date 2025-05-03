@@ -13,6 +13,7 @@ import {Book} from '../../models/Book';
   styleUrl: './room.component.css'
 })
 export class RoomComponent implements OnInit{
+  bookSelected:Book | null=null;
   constructor(private roomService:RoomsService,
               private sanitizer: DomSanitizer,
               private  route:ActivatedRoute,
@@ -83,6 +84,12 @@ export class RoomComponent implements OnInit{
       document.body.removeChild(textArea);
     }
   }
-
-
+  getBook(bookId:any){
+    this.bookSelected=null;
+    this.bookService.getBookById(bookId).subscribe({
+      next:(response)=>{
+        this.bookSelected=response;
+      },error:(err)=>{console.log(err)}
+    })
+  }
 }
