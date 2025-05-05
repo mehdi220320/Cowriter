@@ -28,6 +28,9 @@ import {AdminModule} from "./admin/admin.module";
 import {AuthInterceptor} from './services/authentication/auth-interceptor';
 import { NameInitialsPipe } from './pipes/name-initials.pipe';
 import { CreateBookComponent } from './books/create-book/create-book.component';
+import { EtatPipe } from './pipes/etat.pipe';
+import { CreateChapterComponent } from './rooms/room/chapter/create-chapter/create-chapter.component';
+import { ReadChapterComponent } from './books/bookdetails/chapters/read-chapter/read-chapter.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { CreateBookComponent } from './books/create-book/create-book.component';
     RoomComponent,
     ChapterComponent,
     NameInitialsPipe,
-    CreateBookComponent
+    CreateBookComponent,
+    EtatPipe,
+    CreateChapterComponent,
+    ReadChapterComponent
   ],
     imports: [
         BrowserModule,

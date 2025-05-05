@@ -14,7 +14,16 @@ export class ChapterService {
   getChapterById(id:any):Observable<Chapter>{
     return this.http.get<Chapter>(this.apiUrl+"/"+id);
   }
+  getChaptersByBook(id:any):Observable<Chapter[]>{
+    return this.http.get<Chapter[]>(this.apiUrl+"/book/"+id);
+  }
   getChapterVersions(id:any):Observable<ChapterVersion[]>{
     return this.http.get<ChapterVersion[]>(this.apiUrl+"/"+id+"/versions");
+  }
+  AddChapterVersion(formData:any):Observable<any>{
+    return this.http.post<any>(this.apiUrl+"/submit-version",formData)
+  }
+  addChapter(formData:any):Observable<Chapter>{
+    return this.http.post<any>(this.apiUrl+"/addChapter",formData)
   }
 }

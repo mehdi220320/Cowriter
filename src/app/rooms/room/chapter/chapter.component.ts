@@ -32,12 +32,12 @@ export class ChapterComponent {
     },
     visibility: ""
   };
-// Initialize with default values
   chapter: Chapter = {
     _id: '',
+    title:'',
     chapterNumber: '0',
-    book: {name:''},
-    confirmedVersion: '',
+    book: {title:''},
+    confirmedVersion: {_id:'',content:''},
     createdAt: '',
     updatedAt: '',
     createdBy: {_id: '', name: ''}
@@ -64,6 +64,7 @@ export class ChapterComponent {
     this.chapterService.getChapterById(this.chapterId).subscribe({
       next:(response)=>{
         this.chapter=response;
+        console.log("chapters : "+response)
       },error:(err)=>{console.error(err)}
     })
     this.chapterService.getChapterVersions(this.chapterId).subscribe({

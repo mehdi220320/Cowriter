@@ -1,10 +1,12 @@
 
 
-<div style="width: 80%;
-             margin-left: 10%;">
+<div style="width: 100%;">
 
-  <h1>Create your Chapter</h1>
+  <h1>Create your Chapter Version</h1>
   <angular-editor [placeholder]="'Enter text here...'" [config]="config" [(ngModel)]="HtmlContent" ></angular-editor>
+
+  <button  class="btn btn-primary" style="margin-left: 93.2%;margin-top: 10px;" (click)="onRegister()">Register</button>
+
   <h1>Html : </h1>
 
   {{HtmlContent}}

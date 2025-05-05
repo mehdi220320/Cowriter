@@ -17,6 +17,8 @@ import {RoomComponent} from './rooms/room/room.component';
 import {authGuardGuard} from './services/authentication/auth-guard.guard';
 import {ChapterComponent} from './rooms/room/chapter/chapter.component';
 import {ChaptersComponent} from './books/bookdetails/chapters/chapters.component';
+import {CreateChapterComponent} from './rooms/room/chapter/create-chapter/create-chapter.component';
+import {ReadChapterComponent} from './books/bookdetails/chapters/read-chapter/read-chapter.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,6 +34,7 @@ const routes: Routes = [
   {path:'rooms/create',component:CreateRoomComponent,canActivate: [authGuardGuard]},
   {path:'book',component:BooksComponent,canActivate: [authGuardGuard]},
   {path:'ktiba',component:RewriterComponent,canActivate: [authGuardGuard]},
+  {path:'book/:id/chapter/:chapterId',component:ReadChapterComponent,canActivate: [authGuardGuard]},
   {path:'book/:id',component:BookdetailsComponent,canActivate: [authGuardGuard],
     children: [
       { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -54,7 +57,8 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     ,canActivate: [authGuardGuard],
     data: { role: 'Admin' }
-  }
+  },
+  {path:'room/:id/:bookId/addChapter',component:CreateChapterComponent,canActivate: [authGuardGuard]}
 ];
 
 @NgModule({

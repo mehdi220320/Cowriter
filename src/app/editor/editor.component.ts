@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
+import {ActivatedRoute} from '@angular/router';
+import {ChapterService} from '../services/chapter.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-editor',
@@ -7,7 +10,7 @@ import {AngularEditorConfig} from '@kolkov/angular-editor';
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.css'
 })
-export class EditorComponent {
+export class EditorComponent implements OnInit{
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -51,4 +54,29 @@ export class EditorComponent {
 
   };
   HtmlContent='';
+  constructor(private route:ActivatedRoute,private chapterService:ChapterService,private location: Location) {
+  }
+  reloadCurrentRoute() {
+    const currentUrl = this.location.path();
+    this.location.replaceState(currentUrl);
+    window.location.reload();
+  }
+
+  chapterId=""
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.chapterId=params['chapterId']
+      console.log("mel editor : "+this.chapterId)
+    });
+  }
+  onRegister() {
+    const data={chapterId:this.chapterId,content:this.HtmlContent,createdBy:localStorage.getItem('user_id')};
+    this.chapterService.AddChapterVersion(data).subscribe({
+      next:(response)=>{
+        console.log(response);
+        this.reloadCurrentRoute()
+      },error:(err)=>{console.log(err)}
+    })
+
+  }
 }

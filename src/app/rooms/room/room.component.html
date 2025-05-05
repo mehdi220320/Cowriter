@@ -66,17 +66,17 @@
 
             </div>
           </div>
-          <div *ngIf="bookSelected" class="chapter-list" [routerLink]="'/room/' + roomId + '/chapter/' + bookSelected._id">
+          <div *ngIf="bookSelected" class="chapter-list" >
             <h2>{{bookSelected.title}}: Chapters</h2>
-            <div class="chapter-item" *ngFor="let chapter of bookSelected.chapters">
-              <div class="chapter-title">Chapter {{chapter.chapterNumber}}:</div>
+            <div class="chapter-item" *ngFor="let chapter of bookSelected.chapters" [routerLink]="'/room/' + roomId + '/chapter/' + chapter._id">
+              <div class="chapter-title">Chapter {{chapter.chapterNumber}}: id:{{chapter._id}}</div>
               <div class="chapter-meta">
 <!--                <span class="chapter-author">By Alex Johnson</span>-->
                 <span class="chapter-date">Last edit at: {{chapter.updatedAt | date}}</span>
               </div>
             </div>
 
-            <div class="add-chapter">Add New Chapter</div>
+            <div class="add-chapter" [routerLink]="'/room/'+roomId+'/'+bookSelected._id+'/addChapter'">Add New Chapter</div>
           </div>
 
           <!-- Creative Comment Section -->

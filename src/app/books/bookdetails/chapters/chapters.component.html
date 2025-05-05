@@ -1,32 +1,15 @@
 <div class="chapters-grid">
-  <div class="chapter-card">
-    <h3 class="chapter-title">Chapter 1: The Beginning</h3>
+  <div class="chapter-card" *ngFor="let chapter of chapters">
+    <h3 class="chapter-title">Chapter {{chapter.chapterNumber}}: The Beginning</h3>
     <p>A mysterious stranger arrives in town with a secret that will change everything.</p>
     <div class="chapter-meta">
-      <span>Last edited: 2 days ago</span>
-      <span>Draft</span>
+      <span>Last edited: {{chapter.updatedAt | date}}</span>
+      <span>Created By: {{chapter.createdBy.name}}</span>
     </div>
   </div>
 
-  <div class="chapter-card">
-    <h3 class="chapter-title">Chapter 2: The Journey Begins</h3>
-    <p>Our heroes set out on their quest, unaware of the challenges ahead.</p>
-    <div class="chapter-meta">
-      <span>Last edited: 1 week ago</span>
-      <span>Published</span>
-    </div>
-  </div>
 
-  <div class="chapter-card">
-    <h3 class="chapter-title">Chapter 3: The First Trial</h3>
-    <p>The team faces their first major challenge in the Forest of Whispers.</p>
-    <div class="chapter-meta">
-      <span>Last edited: 3 days ago</span>
-      <span>Published</span>
-    </div>
-  </div>
-
-  <div class="add-chapter">
-    + Add New Chapter
-  </div>
+<!--  <div class="add-chapter">-->
+<!--    + Add New Chapter-->
+<!--  </div>-->
 </div>

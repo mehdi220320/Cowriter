@@ -18,13 +18,14 @@
       </div>
       <main >
         <div  class="books-view">
-          <div class="content-header" style="  display: flex;">
-            <h1 class="header-title">Chapter {{chapter.chapterNumber}} of the book : {{chapter.book.name}} </h1>
+          <div class="content-header" >
+            <h1 class="header-title">Chapter {{chapter.chapterNumber}} of the book : {{chapter.book.title}} </h1>
+            <h5 class="header-title">Title : {{chapter.title}}</h5>
           </div>
         </div>
         <div class="chapter-version">
           <div class="version-header">
-            <h3>Chapter Versions</h3>
+            <h3>Chapter Versions </h3>
             <div class="version-controls">
               <button class="version-nav prev" (click)="prevVersion()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">

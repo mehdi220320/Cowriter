@@ -3,21 +3,23 @@
     <div class="book-header">
       <img src="assets/book1.png" alt="Book Cover" class="book-cover">
       <div class="book-meta">
-        <h1 class="book-title">The Great Adventure</h1>
-        <span class="book-type">Fantasy</span>
+        <h1 class="book-title">{{book.title}}</h1>
+        <span class="book-type">{{book.type}}</span>
 
         <div class="book-status">
-          <span class="status-badge status-in-progress">In Progress</span>
-          <span class="status-badge">Last chapter: Draft</span>
+          <span class="status-badge "   [ngClass]="book.completed ? 'status-completed' : 'status-in-progress'">
+          Status: {{book.completed | etat}}
+          </span>
+          <span class="status-badge">Total chapters: {{book.chapters.length}}</span>
         </div>
 
         <div class="book-author">
-          <div class="author-avatar">JD</div>
-          <span class="author-name">John Doe</span>
+          <div class="author-avatar">{{book.createdBy.name | nameInitials}}</div>
+          <span class="author-name">{{book.createdBy.name}}</span>
         </div>
 
         <p class="book-description">
-          This is an epic tale of adventure and discovery. Follow our heroes as they journey through mystical lands and encounter extraordinary creatures.
+          {{book.description}}
         </p>
 
         <div class="book-actions">

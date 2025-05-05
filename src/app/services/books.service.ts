@@ -20,4 +20,7 @@ export class BooksService {
   getBookById(id:any):Observable<Book>{
     return this.http.get<Book>(this.apiUrl+"/"+id)
   }
+  getAllBook():Observable<Book[]>{
+    return this.http.get<Book[]>(this.apiUrl+"/all")
+  }
 }
