@@ -10,7 +10,7 @@
             <div class="room-info">
               <h1 class="room-title">{{room.name}}</h1>
               <p class="book-description">
-                {{room.description}}
+                {{room.description ||''| truncate:50}}
               </p>
               <ng-container *ngIf="room">
                 <button *ngIf="!isUserInRoom() && !isUserPending()"
