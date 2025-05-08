@@ -1,45 +1,61 @@
-<div id="wrapper">
-  <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark" style="background-color: black;">
-    <div class="container-fluid d-flex flex-column p-0" >
-      <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3"><span>Brand</span></div>
-      </a>
-      <hr class="sidebar-divider my-0" />
-      <ul class="navbar-nav text-light" id="accordionSidebar">
-        <li class="nav-item">
-          <a class="nav-link " routerLinkActive="active" routerLink="dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+<div class="dashboard-container">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3><i class="fas fa-cog"></i> AdminPanel</h3>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li >
+          <a routerLinkActive="active" routerLink="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="users"><i class="fas fa-user"></i><span>Users</span></a>
+        <li>
+          <a routerLinkActive="active" routerLink="/admin/users"><i class="fas fa-users"></i> Users</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" ><i class="fas fa-table"></i><span>Table</span></a>
+        <li>
+          <a href="#"><i class="fas fa-box-open"></i> Rooms</a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="register.html"><i class="fas fa-user-circle"></i><span>Register</span></a>
+        <li>
+          <a href="#"><i class="fas fa-file-invoice-dollar"></i> Books</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/index"><i class="far fa-user-circle"></i><span>Logout</span></a>
+        <li>
+          <a href="#"><i class="fas fa-chart-pie"></i> Add admin</a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-cog"></i> Logout</a>
         </li>
       </ul>
-      <div class="text-center d-none d-md-inline">
-        <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-      </div>
-    </div>
-  </nav>
-  <div class="d-flex flex-column" id="content-wrapper">
-    <router-outlet></router-outlet>
-    <footer class="bg-white sticky-footer">
-      <div class="container my-auto">
-        <div class="text-center my-auto copyright">
-          <span>Copyright © Brand 2024</span>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <img src="https://ui-avatars.com/api/?name=Admin+User" alt="Admin" class="profile-img">
+        <div class="user-info">
+          <span class="user-name">Admin User</span>
+          <span class="user-role">Administrator</span>
         </div>
       </div>
-    </footer>
-  </div>
-  <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search dashboard...">
+      </div>
+      <div class="topbar-actions">
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="badge">5</span>
+        </button>
+        <button class="user-btn">
+          <i class="fas fa-user-circle"></i>
+        </button>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 </div>

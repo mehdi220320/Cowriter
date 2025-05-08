@@ -1,1 +1,132 @@
-<p>userlist works!</p>
+<div class="container">
+  <div class="header">
+    <h1><i class="fas fa-users"></i> User Management</h1>
+    <div class="search-add">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search users...">
+      </div>
+      <button class="btn btn-primary"><i class="fas fa-plus"></i> Add User</button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Last Active</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="avatar">
+            <span>John Smith</span>
+          </div>
+        </td>
+        <td>john.smithexample.com</td>
+        <td>Administrator</td>
+        <td><span class="status status-active">Active</span></td>
+        <td>2 hours ago</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn btn-sm btn-view"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-sm btn-edit"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm btn-delete"><i class="fas fa-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="avatar">
+            <span>Sarah Johnson</span>
+          </div>
+        </td>
+        <td>sarah.jexample.com</td>
+        <td>Editor</td>
+        <td><span class="status status-active">Active</span></td>
+        <td>1 day ago</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn btn-sm btn-view"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-sm btn-edit"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm btn-delete"><i class="fas fa-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="avatar">
+            <span>Michael Brown</span>
+          </div>
+        </td>
+        <td>michael.bexample.com</td>
+        <td>Author</td>
+        <td><span class="status status-pending">Pending</span></td>
+        <td>3 days ago</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn btn-sm btn-view"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-sm btn-edit"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm btn-delete"><i class="fas fa-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="avatar">
+            <span>Emily Davis</span>
+          </div>
+        </td>
+        <td>emily.dexample.com</td>
+        <td>Subscriber</td>
+        <td><span class="status status-inactive">Inactive</span></td>
+        <td>1 week ago</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn btn-sm btn-view"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-sm btn-edit"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm btn-delete"><i class="fas fa-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="User" class="avatar">
+            <span>Robert Wilson</span>
+          </div>
+        </td>
+        <td>robert.example.com</td>
+        <td>Editor</td>
+        <td><span class="status status-active">Active</span></td>
+        <td>2 days ago</td>
+        <td>
+          <div class="action-btns">
+            <button class="btn btn-sm btn-view"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-sm btn-edit"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm btn-delete"><i class="fas fa-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <li class="page-item"><a href="#" class="page-link">Previous</a></li>
+    <li class="page-item"><a href="#" class="page-link active">1</a></li>
+    <li class="page-item"><a href="#" class="page-link">2</a></li>
+    <li class="page-item"><a href="#" class="page-link">3</a></li>
+    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+  </div>
+</div>
