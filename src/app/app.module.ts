@@ -31,6 +31,8 @@ import { CreateBookComponent } from './books/create-book/create-book.component';
 import { EtatPipe } from './pipes/etat.pipe';
 import { CreateChapterComponent } from './rooms/room/chapter/create-chapter/create-chapter.component';
 import { ReadChapterComponent } from './books/bookdetails/chapters/read-chapter/read-chapter.component';
+import { SearchComponent } from './search/search.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { ReadChapterComponent } from './books/bookdetails/chapters/read-chapter/
     CreateBookComponent,
     EtatPipe,
     CreateChapterComponent,
-    ReadChapterComponent
+    ReadChapterComponent,
+    SearchComponent,
+    TruncatePipe
   ],
     imports: [
         BrowserModule,

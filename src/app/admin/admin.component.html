@@ -13,16 +13,16 @@
           <a routerLinkActive="active" routerLink="/admin/users"><i class="fas fa-users"></i> Users</a>
         </li>
         <li>
-          <a href="#"><i class="fas fa-box-open"></i> Rooms</a>
+          <a routerLinkActive="active" routerLink="/admin/rooms"><i class="fas fa-box-open"></i> Rooms</a>
         </li>
         <li>
-          <a href="#"><i class="fas fa-file-invoice-dollar"></i> Books</a>
+          <a routerLinkActive="active" routerLink="/admin/books"><i class="fas fa-file-invoice-dollar"></i> Books</a>
         </li>
         <li>
           <a href="#"><i class="fas fa-chart-pie"></i> Add admin</a>
         </li>
         <li>
-          <a href="#"><i class="fas fa-cog"></i> Logout</a>
+          <a (click)="logout()" style="cursor:pointer"><i class="fas fa-cog"></i> Logout</a>
         </li>
       </ul>
     </nav>
