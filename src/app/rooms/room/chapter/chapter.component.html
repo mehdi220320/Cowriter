@@ -11,22 +11,49 @@
               <p class="book-description">
                 {{room.description}}
               </p>
-              <button class="btn btn-primary">Follow</button>
             </div>
           </div>
         </div>
       </div>
       <main >
-        <div  class="books-view">
-          <div class="content-header" >
-            <h1 class="header-title">Chapter {{chapter.chapterNumber}} of the book : {{chapter.book.title}} </h1>
-            <h5 class="header-title">Title : {{chapter.title}}</h5>
+
+        <div class="chapter-container">
+          <div class="chapter-header">
+            <div class="chapter-meta">
+              <div style="display: flex;
+                          gap: 30px;
+                          justify-items: center;">
+                <span class="chapter-badge">Chapter {{chapter.chapterNumber}} </span>
+                <h1 class="chapter-title">{{chapter.title}}</h1>
+              </div>
+              <p class="book-title">From <em>{{chapter.book.title}}</em></p>
+            </div>
+
+            <div class="deadline-card">
+              <div class="deadline-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <div class="deadline-content">
+                <span class="deadline-label">Deadline</span>
+                <span class="deadline-date">{{chapter.chapterDeadline | date}}</span>
+                <div class="countdown-timer" [class.urgent]="isDeadlineClose">
+                  <span class="countdown-days">{{countdown.days}}d</span>
+                  <span class="countdown-hours">{{countdown.hours}}h</span>
+                  <span class="countdown-minutes">{{countdown.minutes}}m</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="chapter-version">
           <div class="version-header">
             <h3>Chapter Versions </h3>
-            <div class="version-controls">
+            <div class="version-controls" *ngIf="versions.length>0">
               <button class="version-nav prev" (click)="prevVersion()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -58,21 +85,14 @@
                 <div class="version-actions">
 <!--                  <button class="btn-view">View Full Version</button>-->
                   <div class="version-votes">
-                    <button class="vote-btn upvote" (click)="upvoteVersion(version._id)" [class.active]="version.votes === 1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
-                      </svg>
-                      <span>{{version.votes}}</span>
-                    </button>
-                    <button class="vote-btn downvote" (click)="downvoteVersion(version._id)" [class.active]="version.votes === -1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
-                      </svg>
+                    <button class="vote-btn upvote" (click)="voteVersion(version._id)" [disabled]="isUserLike(version._id)" [class.active]="isUserLike(version._id)">
+                      <i class="fa fa-thumbs-up"></i>
                       <span>{{version.votes}}</span>
                     </button>
                   </div>
                 </div>
               </div>
+              <div class="version-card " style="justify-content: center;align-items: center ;" *ngIf="versions.length===0">No version is available</div>
             </div>
           </div>
 
@@ -83,7 +103,9 @@
           </div>
         </div>
 
-        <app-editor></app-editor>
+        <app-editor *ngIf="!chapter.confirmedVersion"></app-editor>
+        <div class="version-card " style="justify-content: center;align-items: center ;" *ngIf="countdown.minutes===0">Time's up! While you can't submit new versions now, why not review existing ones?</div>
+
         <div class="comments-container ">
           <div class="comments-header">
             <h2>Room Discussions</h2>

@@ -1,4 +1,5 @@
 .reader-container {
+  height: -webkit-fill-available;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
@@ -38,6 +39,8 @@
 }
 
 .chapter-content {
+  min-width: 800px ;
+  min-height: 300px;
   font-size: 1.1rem;
   line-height: 1.8;
   text-align: justify;
@@ -62,7 +65,7 @@
 
 .nav-button {
   padding: 0.7rem 1.5rem;
-  background-color: #4a6fa5;
+  background-color: #4361ee;
   color: white;
   border: none;
   border-radius: 4px;
@@ -72,7 +75,7 @@
 }
 
 .nav-button:hover {
-  background-color: #166088;
+  background-color: #4361ee;
 }
 
 .nav-button:disabled {

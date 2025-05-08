@@ -238,7 +238,7 @@
 }
 
 .chapter-meta {
-  display: flex;
+  /*display: flex;*/
   font-size: 0.8rem;
   color: #666666;
   margin-bottom: 10px;
@@ -815,6 +815,7 @@
 
 .vote-btn.upvote:hover, .vote-btn.upvote.active {
   background: rgba(0, 184, 148, 0.1);
+
   color: #00B894;
 }
 
@@ -844,4 +845,145 @@
   background: #6C5CE7;
   width: 16px;
   border-radius: 4px;
+}
+/* Modern Chapter View Styles */
+.chapter-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.chapter-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.chapter-meta {
+  flex: 1;
+}
+
+.chapter-badge {
+  display: inline-block;
+  max-height: 50px;
+  background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+  color: white;
+  padding: 14px;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(67, 97, 238, 0.2);
+}
+
+.chapter-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #2b2d42;
+  margin-top: -7px;
+}
+
+.book-title {
+  font-size: 1.25rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.book-title em {
+  font-style: normal;
+  color: #495057;
+  font-weight: 500;
+}
+
+/* Modern Deadline Card */
+/* Updated Deadline Card with Countdown */
+.deadline-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  max-width: 300px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.deadline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.deadline-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #4361ee, #3a0ca3);
+}
+
+.countdown-timer {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.countdown-timer.urgent {
+  color: #d90429;
+}
+
+.countdown-timer span {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.15rem 0.3rem;
+  background: rgba(73, 80, 87, 0.1);
+  border-radius: 4px;
+}
+
+.countdown-timer.urgent span {
+  background: rgba(217, 4, 41, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .deadline-card {
+    max-width: 100%;
+  }
+
+  .countdown-timer {
+    font-size: 0.85rem;
+  }
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .chapter-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .chapter-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chapter-title {
+    font-size: 2rem;
+  }
+
+
 }

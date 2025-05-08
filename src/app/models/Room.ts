@@ -3,9 +3,10 @@ export interface Room{
   name: string;
   code: string;
   createdBy:{_id:string,name:string} ;
-  users: [{ _id:string,
-            name:string }];
-  pendingMembers: string[];
+  users: { _id:string,
+            name:string }[];
+  pendingMembers: { _id:string,
+                    name:string }[];
   description:string;
   coverImage: {
     path: string,

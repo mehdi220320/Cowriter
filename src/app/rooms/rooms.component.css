@@ -1466,6 +1466,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .relative.rounded-xl.overflow-hidden img {
   max-height: 300px;
+  min-height: 300px;
 }
 [data-tooltip] {
   position: relative; /* Required for absolute positioning of tooltip */

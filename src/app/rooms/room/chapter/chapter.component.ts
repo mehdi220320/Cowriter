@@ -15,6 +15,7 @@ import {ChapterVersion} from '../../../models/ChapterVersion';
 })
 export class ChapterComponent {
   roomId="";
+  userId:any="";
   room: Room = {
     _id: "",
     name: "",
@@ -24,7 +25,7 @@ export class ChapterComponent {
       name: ""
     },
     users:[ {    _id: "", name: ""}],
-    pendingMembers: [],
+    pendingMembers: [ {    _id: "", name: ""}],
     description: "",
     coverImage: {
       path: "",
@@ -35,20 +36,25 @@ export class ChapterComponent {
   chapter: Chapter = {
     _id: '',
     title:'',
-    chapterNumber: '0',
+    chapterNumber: 0,
     book: {title:''},
     confirmedVersion: {_id:'',content:''},
     createdAt: '',
     updatedAt: '',
+    chapterDeadline:'',
     createdBy: {_id: '', name: ''}
   };
   chapterId="";
   versions:ChapterVersion[]=[];
+  votes:any[]=[];
+
   constructor(private roomService:RoomsService,
               private sanitizer: DomSanitizer,
               private  route:ActivatedRoute,
               private chapterService:ChapterService) {}
   ngOnInit() {
+
+    this.userId=localStorage.getItem('user_id');
     this.route.params.subscribe(params => {
       this.roomId = params['id'];
       this.chapterId=params['chapterId']
@@ -73,6 +79,12 @@ export class ChapterComponent {
         console.log("versions:"+this.versions)
       },error:(err)=>{console.error(err)}
     })
+    this.chapterService.getVotesByUser(this.userId).subscribe({
+      next:(response)=>{
+        this.votes=response;
+      },error:(err)=>{console.error(err)}
+    })
+    this.startCountdown();
 
   }
   sanitizeImageUrl(url: { path: string } | null): SafeUrl | string {
@@ -83,53 +95,7 @@ export class ChapterComponent {
 
   currentVersionIndex = 0;
   translateValue = 0;
-  S = [
-    {
-      id: 1,
-      author: 'Alex Johnson',
-      authorInitials: 'AJ',
-      date: new Date('2023-05-15'),
-      title: 'First Draft',
-      preview: 'This is the initial version of the chapter with the basic storyline',
-      upvotes: 12,
-      downvotes: 2,
-      userVote: 0 // 0 = no vote, 1 = upvote, -1 = downvote
-    },
-    {
-      id: 2,
-      author: 'Sam Rivera',
-      authorInitials: 'SR',
-      date: new Date('2023-05-18'),
-      title: 'Revised Edition',
-      preview: 'Added more character development and refined the dialogue',
-      upvotes: 24,
-      downvotes: 3,
-      userVote: 1
-    },
-    {
-      id: 3,
-      author: 'Morgan Park',
-      authorInitials: 'MP',
-      date: new Date('2023-05-22'),
-      title: 'Final Draft',
-      preview: 'Incorporated all feedback and polished the narrative flow',
-      upvotes: 42,
-      downvotes: 1,
-      userVote: 0
-    }
-    ,
-    {
-      id: 3,
-      author: 'Morgan Park',
-      authorInitials: 'MP',
-      date: new Date('2023-05-22'),
-      title: 'Final Draft',
-      preview: 'Incorporated all feedback and polished the narrative flow',
-      upvotes: 42,
-      downvotes: 1,
-      userVote: 0
-    }
-  ];
+
 
   get currentVersion() {
     return this.currentVersionIndex + 1;
@@ -162,40 +128,73 @@ export class ChapterComponent {
     this.translateValue = -100 * index;
   }
 
-  upvoteVersion(versionId: any) {
-    // const version = this.versions.find(v => v.id === versionId);
-    // if (version) {
-    //   if (version.userVote === 1) {
-    //     // Remove upvote
-    //     version.upvotes--;
-    //     version.userVote = 0;
-    //   } else {
-    //     // Add or change to upvote
-    //     if (version.userVote === -1) version.downvotes--;
-    //     version.upvotes += version.userVote === 0 ? 1 : 2;
-    //     version.userVote = 1;
-    //   }
-    // }
-  }
+  voteVersion(versionId: any) {
+    const versionIndex = this.versions.findIndex(v => v._id === versionId);
 
-  downvoteVersion(versionId: any) {
-    // const version = this.versions.find(v => v.id === versionId);
-    // if (version) {
-    //   if (version.userVote === -1) {
-    //     // Remove downvote
-    //     version.downvotes--;
-    //     version.userVote = 0;
-    //   } else {
-    //     // Add or change to downvote
-    //     if (version.userVote === 1) version.upvotes--;
-    //     version.downvotes += version.userVote === 0 ? 1 : 2;
-    //     version.userVote = -1;
-    //   }
-    // }
+    if (versionIndex !== -1) {
+      this.versions[versionIndex].votes = (this.versions[versionIndex].votes || 0) + 1;
+
+      this.chapterService.voteVersion({versionId: versionId, userId: this.userId}).subscribe({
+        next: (response) => {
+          console.log("vote response: ", response.votes);
+          this.votesReload()
+        },
+        error: (err) => {
+          console.error(err);
+          this.versions[versionIndex].votes = (this.versions[versionIndex].votes || 1) - 1;
+        }
+      });
+    }
+  }
+  votesReload(){
+    this.votes=[];
+    this.chapterService.getVotesByUser(this.userId).subscribe({
+      next:(response)=>{
+        this.votes=response;
+      },error:(err)=>{console.error(err)}
+    })
+  }
+  isUserLike(versionId:any){
+    const voteIndex = this.votes.findIndex(v => v.chapterVersion === versionId);
+    if (voteIndex !== -1) return true;
+    return false  ;
   }
 
   getSafeHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
+  countdown = {
+    days: 0,
+    hours: 0,
+    minutes: 0
+  };
+  isDeadlineClose = false;
+  private countdownInterval: any;
 
+  ngOnDestroy() {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+    }
+  }
+
+  startCountdown() {
+    this.countdownInterval = setInterval(() => {
+      const deadline = new Date(this.chapter.chapterDeadline).getTime();
+      const now = new Date().getTime();
+      const distance = deadline - now;
+
+      if (distance < 0) {
+        this.countdown = { days: 0, hours: 0, minutes: 0 };
+        clearInterval(this.countdownInterval);
+        return;
+      }
+
+      this.countdown.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      this.countdown.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      this.countdown.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+      // Check if deadline is within 48 hours
+      this.isDeadlineClose = distance < (48 * 60 * 60 * 1000);
+    }, 1000);
+  }
 }

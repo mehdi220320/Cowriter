@@ -1,5 +1,5 @@
 <div class="chapters-grid">
-  <div class="chapter-card" *ngFor="let chapter of chapters">
+  <div class="chapter-card" *ngFor="let chapter of chapters" [routerLink]="'/book/'+bookId+'/chapter/'+chapter._id" >
     <h3 class="chapter-title">Chapter {{chapter.chapterNumber}}: The Beginning</h3>
     <p>A mysterious stranger arrives in town with a secret that will change everything.</p>
     <div class="chapter-meta">

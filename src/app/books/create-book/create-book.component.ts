@@ -108,26 +108,31 @@ export class CreateBookComponent {
     }
   }
   onRegister() {
-    const bookData = {
-      title: this.book.title,
-      description: this.book.description,
-      firstChapterContent: this.book.HtmlContent,
-      createdBy: this.userId,
-      roomId: this.roomId,
-      type: this.book.type,
-      coverImage:{path:this.selectedFile?.webkitRelativePath}
-    };
+    if (!this.selectedFile) {
+      this.errorMessage = 'Please select a cover image';
+      return;
+    }
 
-    console.log(this.selectedFile)
+    const formData = new FormData();
+    formData.append('title', this.book.title);
+    formData.append('description', this.book.description);
+    formData.append('firstChapterContent', this.book.HtmlContent);
+    formData.append('createdBy', this.userId);
+    formData.append('roomId', this.roomId);
+    formData.append('type', this.book.type);
+    formData.append('coverImage', this.selectedFile);
 
-    console.log("Sending data:", bookData);
+    console.log("Sending data with file:", this.selectedFile.name);
 
-    this.bookservice.createBook(bookData).subscribe({
+    this.bookservice.createBook(formData).subscribe({
       next: (response) => {
-        console.log("created Successfully ", response);
+        console.log("Created successfully", response);
         this.reloadCurrentRoute();
       },
-      error: (err) => { console.log(err) }
+      error: (err) => {
+        console.error("Error creating book:", err);
+        this.errorMessage = err.error?.message || 'Failed to create book';
+      }
     });
   }
   onCancel() {

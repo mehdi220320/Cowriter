@@ -44,7 +44,7 @@ export class CreateChapterComponent {
       name: ""
     },
     users:[ {    _id: "", name: ""}],
-    pendingMembers: [],
+    pendingMembers: [ {    _id: "", name: ""}],
     description: "",
     coverImage: {
       path: "",
@@ -95,6 +95,7 @@ export class CreateChapterComponent {
 
   };
   HtmlContent='';
+  chapterDeadline='';
   constructor(private roomService:RoomsService,
               private sanitizer: DomSanitizer,
               private  route:ActivatedRoute,
@@ -126,7 +127,7 @@ export class CreateChapterComponent {
       "assets/img/img.png";
   }
   onRegister() {
-    this.chapterService.addChapter({bookId:this.bookId,title:this.title,createdBy:localStorage.getItem('user_id')}).subscribe({
+    this.chapterService.addChapter({bookId:this.bookId,title:this.title,createdBy:localStorage.getItem('user_id'),chapterDeadline:this.chapterDeadline}).subscribe({
       next:(response)=>{
         this.chapterId=response._id
         const data={chapterId:this.chapterId,content:this.HtmlContent,createdBy:localStorage.getItem('user_id')};

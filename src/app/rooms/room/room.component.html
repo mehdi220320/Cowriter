@@ -3,7 +3,7 @@
 
   <main  class=" flex-1 py-10  px-5 sm:px-10 ">
     <section *ngIf="books.length>0" class="mt-3 mb-3" >
-      <div class="container">
+      <div class="container" style="min-width: 1100px">
         <div class="header">
           <div class="room-header">
             <img [src]="sanitizeImageUrl(room.coverImage)" alt="Book Cover" class="book-cover">
@@ -12,12 +12,25 @@
               <p class="book-description">
                 {{room.description}}
               </p>
-              <button class="btn btn-primary">Follow</button>
+              <ng-container *ngIf="room">
+                <button *ngIf="!isUserInRoom() && !isUserPending()"
+                        class="btn btn-primary"
+                        (click)="follow()">
+                  Follow
+                </button>
+
+                <div *ngIf="isUserPending()" class="text-muted">
+                  Waiting for admin approval
+                </div>
+                <div *ngIf="isUserInRoom()"  style="font-weight: bold;color: #1a4173;" >
+                  Welcome To The Room
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>
 
-        <main>
+        <main *ngIf="isUserInRoom()" >
           <div  class="books-view">
             <div class="content-header" style="  display: flex;
                                                   justify-content: space-between;
@@ -69,14 +82,15 @@
           <div *ngIf="bookSelected" class="chapter-list" >
             <h2>{{bookSelected.title}}: Chapters</h2>
             <div class="chapter-item" *ngFor="let chapter of bookSelected.chapters" [routerLink]="'/room/' + roomId + '/chapter/' + chapter._id">
-              <div class="chapter-title">Chapter {{chapter.chapterNumber}}: id:{{chapter._id}}</div>
+              <div class="chapter-title">Chapter {{chapter.chapterNumber}}</div>
               <div class="chapter-meta">
-<!--                <span class="chapter-author">By Alex Johnson</span>-->
+                <!--                <span class="chapter-author">By Alex Johnson</span>-->
                 <span class="chapter-date">Last edit at: {{chapter.updatedAt | date}}</span>
               </div>
             </div>
 
-            <div class="add-chapter" [routerLink]="'/room/'+roomId+'/'+bookSelected._id+'/addChapter'">Add New Chapter</div>
+            <!--            <div *ngIf="!checklastChapter(bookSelected.chapters[bookSelected.chapters.length-1]._id)" disabled class="not-add-chapter" >You can't add New Chapter until the last one is confirmed</div>-->
+            <div  class="add-chapter" [routerLink]="'/room/'+roomId+'/'+bookSelected._id+'/addChapter'">Add New Chapter</div>
           </div>
 
           <!-- Creative Comment Section -->
@@ -175,13 +189,26 @@
           </div>
         </main>
 
-        <aside class="user-list">
+        <aside *ngIf="isUserInRoom()" class="user-list">
           <div style="position: sticky;top: 100px;">
             <h2>Collaborators ({{room.users.length}})</h2>
 
             <div *ngFor="let user of room.users" class="user-item">
               <div class="user-avatar">{{user.name | nameInitials  }}</div>
               <span>{{user.name}}</span>
+            </div>
+            <br>
+            <div *ngIf="room.createdBy._id===userid">
+              <h2>Invites ({{room.pendingMembers.length}})</h2>
+              <div *ngFor="let user of room.pendingMembers" class="user-item " style="justify-content: space-between">
+                <div class="user-avatar">{{user.name | nameInitials  }}</div>
+                <span>{{user.name}}</span>
+                <button class="copy-button" style="background: darkblue" (click)="acceptInvitation(user._id)">
+                  Accept
+                </button>
+
+              </div>
+
             </div>
 
 
@@ -206,6 +233,9 @@
           </div>
 
         </aside>
+        <div *ngIf="!isUserInRoom()">
+          <div class="version-card " style="margin-left:170px;justify-content: center;align-items: center ;min-width: 100%" >You need to follow this room First</div>
+        </div>
       </div>
     </section>
 

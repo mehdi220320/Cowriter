@@ -24,4 +24,11 @@ export class RoomsService {
   getRoomById(id:string):Observable<any>{
     return this.http.get<Room[]>(this.apiUrl+"/"+id)
   }
+  acceptInvites(data:any):Observable<any>{
+    return this.http.post<any>(this.apiUrl+"/accept-join-request",data)
+  }
+  join(data:any):Observable<any>{
+    return this.http.post<any>(this.apiUrl+"/join",data)
+  }
+
 }

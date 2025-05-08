@@ -14,8 +14,8 @@
     </div>
 
     <div class="navigation">
-      <button class="nav-button" disabled>Previous</button>
-      <button class="nav-button">Next Chapter</button>
+      <button class="nav-button" (click)="previous()" [disabled]="chapter.chapterNumber===1">Previous</button>
+      <button class="nav-button" (click)="next()" [disabled]="chapter.chapterNumber===book.chapters.length">Next Chapter</button>
     </div>
   </div>
 </app-default-page>

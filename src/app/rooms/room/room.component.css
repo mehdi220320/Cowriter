@@ -231,7 +231,20 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
+.status-completed {
+  background-color: #e8f7f0;
+  color: #28a745;
+}
 
+.status-in-progress {
+  background-color: #fff3cd;
+  color: #d4a017;
+}
+.chapter-status {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
 .chapter-title {
   font-weight: 600;
   margin-bottom: 5px;
@@ -475,6 +488,18 @@
 .comment-submit:hover {
   background-color: #6C5CE7; /* Darker shade of the red */
 }
+.not-add-chapter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background-color: #f8f9fa; /* New red color */
+  color: black;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  margin-top: 15px;
+}
 
 .add-chapter {
   display: flex;
@@ -637,4 +662,26 @@
   background-color: #6C5CE7;
   color: white;
   transform: scale(1.1);
+}
+
+.version-cards {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.version-card {
+  min-width: 100%;
+  padding: 1.5rem;
+  background: #F8F9FA;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure cards take full height */
+}
+
+.version-card.active {
+  background: white;
+  box-shadow: 0 8px 25px rgba(108, 92, 231, 0.1);
+  border: 1px solid rgba(108, 92, 231, 0.2);
 }
