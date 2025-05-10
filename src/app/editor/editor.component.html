@@ -6,9 +6,10 @@
   <angular-editor [placeholder]="'Enter text here...'" [config]="config" [(ngModel)]="HtmlContent" ></angular-editor>
 
   <button  class="btn btn-primary" style="margin-left: 93.2%;margin-top: 10px;" (click)="onRegister()">Register</button>
+  <button class="btn btn-primary" (click)="refCom()" >refrech</button>
+  <button class="btn btn-primary" (click)="back()" >backToOriginal</button>
+  <h1>RefContent : </h1>
 
-  <h1>Html : </h1>
-
-  {{HtmlContent}}
+  {{refContent}}
 
 </div>

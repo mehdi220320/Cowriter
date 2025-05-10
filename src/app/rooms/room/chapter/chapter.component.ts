@@ -197,4 +197,5 @@ export class ChapterComponent {
       this.isDeadlineClose = distance < (48 * 60 * 60 * 1000);
     }, 1000);
   }
+
 }

@@ -3,6 +3,7 @@ import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {ActivatedRoute} from '@angular/router';
 import {ChapterService} from '../services/chapter.service';
 import { Location } from '@angular/common';
+import {TextService} from '../services/text.service';
 
 @Component({
   selector: 'app-editor',
@@ -54,7 +55,11 @@ export class EditorComponent implements OnInit{
 
   };
   HtmlContent='';
-  constructor(private route:ActivatedRoute,private chapterService:ChapterService,private location: Location) {
+  refContent?:any;
+
+
+  constructor(private route:ActivatedRoute,private chapterService:ChapterService,private location: Location,
+            private textservice:TextService) {
   }
   reloadCurrentRoute() {
     const currentUrl = this.location.path();
@@ -78,5 +83,30 @@ export class EditorComponent implements OnInit{
       },error:(err)=>{console.log(err)}
     })
 
+  }
+  backContent='';
+  refCom() {
+
+    const plainText = this.getPlainText(this.HtmlContent);
+    this.backContent = plainText;
+
+    console.log("plaintext : " + plainText);
+
+    this.textservice.ref({ text: plainText }).subscribe({
+      next: (response) => {
+        this.HtmlContent = response.result;
+        console.log("refContent : " + this.refContent);
+      },
+      error: (error) => console.error(error)
+    });
+  }
+  getPlainText(html: string): string {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.textContent || temp.innerText || '';
+  }
+
+  back() {
+    this.HtmlContent=this.backContent
   }
 }
