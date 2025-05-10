@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RoomsService} from '../services/rooms.service';
 import {Room} from '../models/Room';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-rooms',
@@ -16,10 +17,12 @@ export class RoomsComponent implements OnInit{
   currentIndex: number = 0;
   itemsToShow: number = 4;
   userId: string | null = null;
+  code:string='';
 
   constructor(
     private roomService: RoomsService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router:Router
   ) {}
 
   sanitizeImageUrl(url: { path: string } | null): SafeUrl | string {
@@ -87,5 +90,16 @@ export class RoomsComponent implements OnInit{
 
   canMoveLeft(): boolean {
     return this.currentIndex > 0;
+  }
+  joinRoom() {
+    console.log('Code before join:', this.code); // Check the value
+    this.roomService.join({code: this.code, userId: this.userId}).subscribe({
+      next: (response) => {
+        this.router.navigate(['/room/'+response.room._id]);
+      },
+      error: (err) => {
+        console.error('Error joining room:', err);
+      }
+    });
   }
 }

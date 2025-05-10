@@ -19,6 +19,7 @@ import {ChapterComponent} from './rooms/room/chapter/chapter.component';
 import {ChaptersComponent} from './books/bookdetails/chapters/chapters.component';
 import {CreateChapterComponent} from './rooms/room/chapter/create-chapter/create-chapter.component';
 import {ReadChapterComponent} from './books/bookdetails/chapters/read-chapter/read-chapter.component';
+import {SearchComponent} from './search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path:'editor',component:EditorComponent},
   {path:'contactUs',component:ContactUsComponent},
   {path:'acceuil',component:AccueilComponent,canActivate: [authGuardGuard]},
+  {path:'search',component:SearchComponent,canActivate: [authGuardGuard]},
   {path:'rooms',component:RoomsComponent,canActivate: [authGuardGuard]},
   {path:'room/:id',component:RoomComponent,canActivate: [authGuardGuard]},
   {path:'room/:id/chapter/:chapterId',component:ChapterComponent,canActivate: [authGuardGuard]},

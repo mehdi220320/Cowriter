@@ -1,16 +1,16 @@
 <app-default-page>
-  <app-create-book  style="width: 100% ;margin-left: 10%;" *ngIf="books.length===0"></app-create-book>
 
   <main  class=" flex-1 py-10  px-5 sm:px-10 ">
-    <section *ngIf="books.length>0" class="mt-3 mb-3" >
+    <section  class="mt-3 mb-3" >
       <div class="container" style="min-width: 1100px">
-        <div class="header">
+
+        <div  class="header">
           <div class="room-header">
             <img [src]="sanitizeImageUrl(room.coverImage)" alt="Book Cover" class="book-cover">
             <div class="room-info">
               <h1 class="room-title">{{room.name}}</h1>
               <p class="book-description">
-                {{room.description}}
+                {{room.description ||''| truncate:50}}
               </p>
               <ng-container *ngIf="room">
                 <button *ngIf="!isUserInRoom() && !isUserPending()"
@@ -29,8 +29,9 @@
             </div>
           </div>
         </div>
+        <app-create-book  style="width: 100% ;margin-left: 130px" *ngIf="books.length===0 && isUserInRoom()"></app-create-book>
 
-        <main *ngIf="isUserInRoom()" >
+        <main  *ngIf="isUserInRoom() &&	 books.length>0" >
           <div  class="books-view">
             <div class="content-header" style="  display: flex;
                                                   justify-content: space-between;
@@ -189,7 +190,7 @@
           </div>
         </main>
 
-        <aside *ngIf="isUserInRoom()" class="user-list">
+        <aside *ngIf="isUserInRoom() && books.length>0" class="user-list">
           <div style="position: sticky;top: 100px;">
             <h2>Collaborators ({{room.users.length}})</h2>
 

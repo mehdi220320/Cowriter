@@ -9,11 +9,12 @@
             <p class="subtitle">Enter the code to access your shared space</p>
           </div>
 
-          <form class="modern-form">
+          <form class="modern-form" (ngSubmit)="joinRoom(); $event.preventDefault()">
             <div class="form-group">
               <div class="input-wrapper">
                 <span class="input-prefix">#</span>
-                <input type="text" id="roomCode" class="modern-input" placeholder="Room_Code" autocomplete="off" spellcheck="false">
+                <input type="text" id="roomCode" name="roomCode" class="modern-input"
+                       placeholder="Room_Code" autocomplete="off" spellcheck="false" [(ngModel)]="code">
                 <div class="input-border"></div>
               </div>
               <label for="roomCode" class="input-label">Room Code</label>
@@ -25,9 +26,11 @@
                 <path d="M4 12h16m-7-7l7 7-7 7"></path>
               </svg>
             </button>
+
             <div class="divider">
               <span>or</span>
             </div>
+
             <button type="button" class="modern-button create-button" routerLink="/rooms/create">
               <span>Create New Room</span>
             </button>
