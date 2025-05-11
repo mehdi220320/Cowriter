@@ -8,6 +8,7 @@ import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {Book} from '../../../../models/Book';
 import {BooksService} from '../../../../services/books.service';
 import { Location } from '@angular/common';
+import {TextService} from '../../../../services/text.service';
 
 @Component({
   selector: 'app-create-chapter',
@@ -19,6 +20,7 @@ export class CreateChapterComponent {
   title="";
   roomId="";
   chapterId="";
+  lastUserContent = '';
   bookId="";
   book:Book={
     _id:"",
@@ -102,7 +104,8 @@ export class CreateChapterComponent {
               private router:Router,
               private chapterService:ChapterService,
               private bookService:BooksService,
-              private location: Location) {}
+              private location: Location,
+              private textservice:TextService) {}
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.roomId = params['id'];
@@ -146,5 +149,48 @@ export class CreateChapterComponent {
   cancel(){
     this.location.back();
   }
+
+  backContent='';
+  isReformulating = false;
+
+  refCom() {
+    const plainText = this.getPlainText(this.HtmlContent);
+    this.backContent = this.lastUserContent = this.HtmlContent;
+    this.isReformulating = true;
+
+    this.textservice.ref({ text: plainText }).subscribe({
+      next: (response) => {
+        this.HtmlContent = response.result;
+
+        // Start fade out after 2 seconds
+        setTimeout(() => {
+          this.isReformulating = false;
+        }, 4000);
+      },
+      error: (error) => {
+        console.error(error);
+        setTimeout(() => {
+          this.isReformulating = false;
+        }, 5000);
+      }
+    });
+  }
+  getPlainText(html: string): string {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.textContent || temp.innerText || '';
+  }
+
+  back() {
+    this.HtmlContent = this.lastUserContent || this.backContent;
+  }
+  onUserChange() {
+    if (!this.isReformulating) {
+      this.lastUserContent = this.HtmlContent;
+    }
+  }
+
+
+
 
 }

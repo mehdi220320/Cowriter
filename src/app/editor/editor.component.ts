@@ -12,9 +12,12 @@ import {TextService} from '../services/text.service';
   styleUrl: './editor.component.css'
 })
 export class EditorComponent implements OnInit{
+  lastUserContent = '';
+
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
+
     height: '30rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
@@ -85,19 +88,30 @@ export class EditorComponent implements OnInit{
 
   }
   backContent='';
+  isReformulating = false;
+
   refCom() {
-
     const plainText = this.getPlainText(this.HtmlContent);
-    this.backContent = plainText;
-
-    console.log("plaintext : " + plainText);
+    if (!this.backContent) {
+      this.backContent = plainText;
+    }
+    this.isReformulating = true;
 
     this.textservice.ref({ text: plainText }).subscribe({
       next: (response) => {
         this.HtmlContent = response.result;
-        console.log("refContent : " + this.refContent);
+
+        // Start fade out after 2 seconds
+        setTimeout(() => {
+          this.isReformulating = false;
+        }, 2000);
       },
-      error: (error) => console.error(error)
+      error: (error) => {
+        console.error(error);
+        setTimeout(() => {
+          this.isReformulating = false;
+        }, 5000);
+      }
     });
   }
   getPlainText(html: string): string {
@@ -107,6 +121,12 @@ export class EditorComponent implements OnInit{
   }
 
   back() {
-    this.HtmlContent=this.backContent
+    this.HtmlContent = this.lastUserContent || this.backContent;
   }
+  onUserChange() {
+    if (!this.isReformulating) {
+      this.lastUserContent = this.HtmlContent;
+    }
+  }
+
 }
