@@ -1,238 +1,98 @@
-<!-- Top Navigation Bar -->
-
-<!-- Dashboard Content -->
-<div class="page-header">
-  <h1><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h1>
-  <div class="breadcrumb">
-    <span>Home</span> / <span>Dashboard</span>
-  </div>
-</div>
-
-<!-- Stats Cards Row -->
-<div class="stats-row">
-  <div class="stat-card bg-primary">
-    <div class="card-icon">
-      <i class="fas fa-users"></i>
-    </div>
-    <div class="card-content">
-      <h3>2,453</h3>
-      <p>Total Users</p>
-      <span class="stat-change positive"><i class="fas fa-arrow-up"></i> 12%</span>
+<div class="modern-dashboard">
+  <!-- Dashboard Header -->
+  <div class="page-header">
+    <h1><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h1>
+    <div class="breadcrumb">
+      <span>Home</span> / <span>Dashboard</span>
     </div>
   </div>
 
-  <div class="stat-card bg-success">
-    <div class="card-icon">
-      <i class="fas fa-shopping-cart"></i>
+  <!-- Stats Cards Row -->
+  <div class="stats-row">
+    <div class="stat-card bg-primary">
+      <div class="card-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="card-content">
+        <h3>{{users.length}}</h3>
+        <p>Total Users</p>
+        <span class="stat-change positive">
+          <i class="fas fa-arrow-up"></i> {{getActiveUserPercentage()}}% active
+        </span>
+      </div>
     </div>
-    <div class="card-content">
-      <h3>1,287</h3>
-      <p>New Orders</p>
-      <span class="stat-change positive"><i class="fas fa-arrow-up"></i> 8%</span>
-    </div>
-  </div>
 
-  <div class="stat-card bg-warning">
-    <div class="card-icon">
-      <i class="fas fa-dollar-sign"></i>
+    <div class="stat-card bg-success">
+      <div class="card-icon">
+        <i class="fas fa-book"></i>
+      </div>
+      <div class="card-content">
+        <h3>{{books.length}}</h3>
+        <p>Total Books</p>
+        <span class="stat-change positive">
+          {{getBookCompletionPercentage()}}% completed
+        </span>
+      </div>
     </div>
-    <div class="card-content">
-      <h3>$34,541</h3>
-      <p>Total Revenue</p>
-      <span class="stat-change positive"><i class="fas fa-arrow-up"></i> 15%</span>
-    </div>
-  </div>
 
-  <div class="stat-card bg-danger">
-    <div class="card-icon">
-      <i class="fas fa-chart-line"></i>
+    <div class="stat-card bg-warning">
+      <div class="card-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="card-content">
+        <h3>{{rooms.length}}</h3>
+        <p>Active Rooms</p>
+        <span class="stat-change positive">
+          {{getAvgRoomMembers()}} avg members
+        </span>
+      </div>
     </div>
-    <div class="card-content">
-      <h3>78.5%</h3>
-      <p>Conversion Rate</p>
-      <span class="stat-change negative"><i class="fas fa-arrow-down"></i> 3%</span>
-    </div>
-  </div>
-</div>
 
-<!-- Main Content Row -->
-<div class="content-row">
-  <!-- Recent Orders Card -->
-  <div class="content-card">
-    <div class="card-header">
-      <h3><i class="fas fa-shopping-cart"></i> Recent Orders</h3>
-      <a href="#" class="view-all">View All</a>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="orders-table">
-          <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Status</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>#ORD-7841</td>
-            <td>John Smith</td>
-            <td>May 12, 2023</td>
-            <td>$245.99</td>
-            <td><span class="status-badge shipped">Shipped</span></td>
-          </tr>
-          <tr>
-            <td>#ORD-7839</td>
-            <td>Sarah Johnson</td>
-            <td>May 11, 2023</td>
-            <td>$189.50</td>
-            <td><span class="status-badge delivered">Delivered</span></td>
-          </tr>
-          <tr>
-            <td>#ORD-7835</td>
-            <td>Michael Brown</td>
-            <td>May 10, 2023</td>
-            <td>$432.75</td>
-            <td><span class="status-badge processing">Processing</span></td>
-          </tr>
-          <tr>
-            <td>#ORD-7832</td>
-            <td>Emily Davis</td>
-            <td>May 9, 2023</td>
-            <td>$156.30</td>
-            <td><span class="status-badge shipped">Shipped</span></td>
-          </tr>
-          <tr>
-            <td>#ORD-7828</td>
-            <td>Robert Wilson</td>
-            <td>May 8, 2023</td>
-            <td>$321.40</td>
-            <td><span class="status-badge delivered">Delivered</span></td>
-          </tr>
-          </tbody>
-        </table>
+    <div class="stat-card bg-danger">
+      <div class="card-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <div class="card-content">
+        <h3>{{books.length + rooms.length}}</h3>
+        <p>Total Content</p>
+        <span class="stat-change positive">
+          {{users.length}} creators
+        </span>
       </div>
     </div>
   </div>
 
-  <!-- Quick Stats Card -->
-  <div class="content-card">
-    <div class="card-header">
-      <h3><i class="fas fa-chart-bar"></i> Monthly Stats</h3>
-    </div>
-    <div class="card-body">
-      <div class="chart-container">
-        <canvas id="monthlyChart" height="250"></canvas>
+  <!-- Main Content Row -->
+  <div class="content-row">
+    <!-- Recent Books Card -->
+    <div class="content-card">
+      <div class="card-header">
+        <h3><i class="fas fa-book"></i> Book Types</h3>
       </div>
-      <div class="chart-legend">
-        <div class="legend-item">
-          <span class="legend-color" style="background-color: #4e73df;"></span>
-          <span class="legend-label">New Users</span>
-        </div>
-        <div class="legend-item">
-          <span class="legend-color" style="background-color: #1cc88a;"></span>
-          <span class="legend-label">Orders</span>
-        </div>
-        <div class="legend-item">
-          <span class="legend-color" style="background-color: #f6c23e;"></span>
-          <span class="legend-label">Revenue</span>
+      <div class="card-body">
+        <div class="chart-container">
+          <canvas id="monthlyChart" height="250"></canvas>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Second Content Row -->
-<div class="content-row">
-  <!-- Recent Activity Card -->
-  <div class="content-card">
-    <div class="card-header">
-      <h3><i class="fas fa-history"></i> Recent Activity</h3>
-    </div>
-    <div class="card-body">
-      <ul class="activity-feed">
-        <li class="activity-item">
-          <div class="activity-icon success">
-            <i class="fas fa-check-circle"></i>
+    <!-- Rooms Card -->
+    <div class="content-card">
+      <div class="card-header">
+        <h3><i class="fas fa-users"></i> Room Visibility</h3>
+      </div>
+      <div class="card-body">
+        <div *ngIf="rooms.length >= 0; else noRooms">
+          <div class="visibility-stats">
+            <div *ngFor="let vis of getRoomVisibilityStats()" class="visibility-item">
+              <span class="visibility-type">{{vis.type}}</span>
+              <span class="visibility-count">{{vis.count}} ({{vis.percentage}}%)</span>
+            </div>
           </div>
-          <div class="activity-content">
-            <p>New order #ORD-7841 received</p>
-            <span class="activity-time">5 minutes ago</span>
-          </div>
-        </li>
-        <li class="activity-item">
-          <div class="activity-icon primary">
-            <i class="fas fa-user-plus"></i>
-          </div>
-          <div class="activity-content">
-            <p>New user registered: michael.brown</p>
-            <span class="activity-time">1 hour ago</span>
-          </div>
-        </li>
-        <li class="activity-item">
-          <div class="activity-icon warning">
-            <i class="fas fa-exclamation-triangle"></i>
-          </div>
-          <div class="activity-content">
-            <p>Low stock alert: Product #PRD-482</p>
-            <span class="activity-time">3 hours ago</span>
-          </div>
-        </li>
-        <li class="activity-item">
-          <div class="activity-icon info">
-            <i class="fas fa-info-circle"></i>
-          </div>
-          <div class="activity-content">
-            <p>System maintenance scheduled</p>
-            <span class="activity-time">Yesterday</span>
-          </div>
-        </li>
-        <li class="activity-item">
-          <div class="activity-icon success">
-            <i class="fas fa-check-circle"></i>
-          </div>
-          <div class="activity-content">
-            <p>Order #ORD-7839 completed</p>
-            <span class="activity-time">Yesterday</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Quick Actions Card -->
-  <div class="content-card">
-    <div class="card-header">
-      <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
-    </div>
-    <div class="card-body">
-      <div class="quick-actions">
-        <button class="action-btn">
-          <i class="fas fa-plus"></i>
-          <span>Add Product</span>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-user-plus"></i>
-          <span>Create User</span>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-tag"></i>
-          <span>Add Discount</span>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-file-export"></i>
-          <span>Export Data</span>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </button>
-        <button class="action-btn">
-          <i class="fas fa-question-circle"></i>
-          <span>Help Center</span>
-        </button>
+        </div>
+        <ng-template #noRooms>
+          <div class="no-data">No rooms available</div>
+        </ng-template>
       </div>
     </div>
   </div>
