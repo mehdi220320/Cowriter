@@ -52,7 +52,7 @@
             <div class="books-grid">
               <div class="book-card" *ngFor="let book of books" (click)="getBook(book._id)">
                 <div class="book-cover">
-                  <img [src]="sanitizeImageUrl(room.coverImage)" alt="Book Cover" class="book-cover">
+                  <img [src]="sanitizeImageUrl2(book.coverImage)" alt="Book Cover" class="book-cover">
                 </div>
                 <div class="book-info">
                   <h3>{{book.title}}</h3>

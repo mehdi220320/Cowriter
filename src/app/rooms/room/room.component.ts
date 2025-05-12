@@ -151,4 +151,9 @@ export class RoomComponent implements OnInit{
   isUserPending(): boolean {
     return this.room.pendingMembers.some(member => member._id === this.userid);
   }
+  sanitizeImageUrl2(url: { path: string } | null): SafeUrl | string {
+    return url ?
+      this.sanitizer.bypassSecurityTrustResourceUrl(url.path) :
+      "assets/img/img.png";
+  }
 }

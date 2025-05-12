@@ -47,11 +47,11 @@
       <div class="container">
         <div class="header">
           <div class="room-header">
-            <img [src]="sanitizeImageUrl(room.coverImage)" alt="Book Cover" class="book-cover">
+            <img [src]="sanitizeImageUrl(room.coverImage)" alt="Book Cover" class="book-cover" style="width: 100%" >
             <div class="room-info">
               <h1 class="room-title">{{room.name}}</h1>
               <p class="book-description">
-                {{room.description}}
+                {{room.description | truncate:150}}
               </p>
               <button class="btn btn-primary">Follow</button>
             </div>
@@ -60,9 +60,6 @@
       </div>
       <main >
         <div class="form-container">
-
-          <!-- Book Details Header -->
-
           <div class="book-header">
             <img [src]="sanitizeImageUrl(book.coverImage)" alt="Book Cover" class="book-cover">
             <div class="book-info">
