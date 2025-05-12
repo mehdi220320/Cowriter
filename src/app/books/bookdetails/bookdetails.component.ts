@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Book} from '../../models/Book';
 import {BooksService} from '../../services/books.service';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bookdetails',
@@ -26,7 +27,7 @@ export class BookdetailsComponent implements OnInit{
     type:"",
     updatedAt:""
   }
-  constructor(private route:ActivatedRoute,private bookService:BooksService) {
+  constructor(private route:ActivatedRoute,private bookService:BooksService,private sanitizer:DomSanitizer ) {
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -39,5 +40,11 @@ export class BookdetailsComponent implements OnInit{
       },error:(err)=>{console.error(err)}
     })
 
+  }
+
+  sanitizeImageUrl(url: { path: string } | null): SafeUrl | string {
+    return url ?
+      this.sanitizer.bypassSecurityTrustResourceUrl(url.path) :
+      "assets/img/img.png";
   }
 }

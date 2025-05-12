@@ -6,7 +6,7 @@
         <span class="font-semibold text-gray-700 text-base dark:text-white">All Books</span>
       </div>
 
-      <div class="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-2 gap-x-5 ">
+      <div class="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
         <div class="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600" *ngFor="let book of books">
           <img [src]="sanitizeImageUrl(book.coverImage)" class=" h-4/5  w-full" [routerLink]="'/book/' +  book._id" style="cursor: pointer" alt="">
           <div  class="w-full h-1/5 bg-white dark:bg-zinc-800 dark:text-white px-3 flex items-center justify-between border-t-2 border-t-red-600">

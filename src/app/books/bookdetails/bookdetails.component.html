@@ -1,7 +1,7 @@
 <app-default-page>
   <div class="book-container">
     <div class="book-header">
-      <img src="assets/book1.png" alt="Book Cover" class="book-cover">
+      <img [src]="sanitizeImageUrl(book.coverImage)" alt="Book Cover" class="book-cover">
       <div class="book-meta">
         <h1 class="book-title">{{book.title}}</h1>
         <span class="book-type">{{book.type}}</span>
