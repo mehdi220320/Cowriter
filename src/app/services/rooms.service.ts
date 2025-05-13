@@ -30,5 +30,8 @@ export class RoomsService {
   join(data:any):Observable<any>{
     return this.http.post<any>(this.apiUrl+"/join",data)
   }
+  getRoomUserCounts(): Observable<{ roomName: string; userCount: number }[]> {
+    return this.http.get<{ roomName: string; userCount: number }[]>(`${this.apiUrl}/stats/room-user-count`);
+  }
 
 }

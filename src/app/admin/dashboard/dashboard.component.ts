@@ -27,8 +27,7 @@ export class DashboardComponent implements OnInit {
   users: User[] = [];
   loading = true;
   chart: any;
-
-  constructor(
+  roomUserChart: any;  constructor(
     private bookService: BooksService,
     private roomService: RoomsService,
     private userService: UserService
@@ -42,7 +41,6 @@ export class DashboardComponent implements OnInit {
 
   loadData() {
     this.loading = true;
-
     // Load books
     this.bookService.getAllBook().subscribe({
       next: (resp) => {
@@ -79,8 +77,50 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       }
     });
+    this.roomService.getRoomUserCounts().subscribe({
+      next: (data) => {
+        this.renderRoomUserChart(data);
+        console.log("Room user counts loaded:", data);
+      },
+      error: (err) => {
+        console.error('Error loading room user counts:', err);
+      }
+    });
   }
+  renderRoomUserChart(data: { roomName: string; userCount: number }[]) {
+    if (this.roomUserChart) {
+      this.roomUserChart.destroy();
+    }
 
+    const ctx = document.getElementById('roomUserCountChart') as HTMLCanvasElement;
+    if (!ctx) return;
+
+    this.roomUserChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: data.map(item => item.roomName),
+        datasets: [{
+          label: 'User Count per Room',
+          data: data.map(item => item.userCount),
+
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 }
+          }
+        }
+      }
+    });
+  }
   // Sanitize room data to ensure it has required properties
   private sanitizeRooms(rooms: any[]): Room[] {
     if (!Array.isArray(rooms)) return [];
@@ -169,4 +209,5 @@ export class DashboardComponent implements OnInit {
       this.chart.destroy();
     }
   }
+
 }
